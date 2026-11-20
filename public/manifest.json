@@ -1,0 +1,11 @@
+{
+  "name": "TruthLens — Break the Deepfake Loop",
+  "short_name": "TruthLens",
+  "description": "Systems Thinking + Gemini AI to stop deepfake virality, protect mental health, and restore trust.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050919",
+  "theme_color": "#10D4A2",
+  "orientation": "portrait-primary",
+  "categories": ["security", "utilities", "social"]
+}
