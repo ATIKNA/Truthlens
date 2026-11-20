@@ -440,11 +440,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <span>Watch 25s Pitch Video</span>
               </button>
               <button
-                onClick={() => onNavigate('deck')}
-                className="inline-flex items-center gap-2.5 rounded-xl border border-purple-500/40 bg-purple-500/10 px-5 py-3 text-sm font-bold text-purple-200 transition hover:bg-purple-500/20 hover:border-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.15)] cursor-pointer"
+                onClick={() => onNavigate('dampen')}
+                className="inline-flex items-center gap-2.5 rounded-xl border border-amber-500/40 bg-amber-500/10 px-5 py-3 text-sm font-bold text-amber-200 transition hover:bg-amber-500/20 hover:border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.15)] cursor-pointer"
               >
-                <Presentation className="h-4 w-4 text-purple-400" />
-                <span>5-Slide Pitch Deck</span>
+                <Flame className="h-4 w-4 text-amber-400" />
+                <span>15s Virality Friction</span>
               </button>
             </div>
           </div>
@@ -524,11 +524,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <span>Download MP4</span>
             </a>
             <button
-              onClick={() => onNavigate('deck')}
-              className="inline-flex items-center gap-2 rounded-xl border border-purple-500/30 bg-purple-500/10 px-3.5 py-2 text-xs font-semibold text-purple-300 hover:bg-purple-500/20 transition cursor-pointer"
+              onClick={() => onNavigate('solutions')}
+              className="inline-flex items-center gap-2 rounded-xl border border-sky-500/30 bg-sky-500/10 px-3.5 py-2 text-xs font-semibold text-sky-300 hover:bg-sky-500/20 transition cursor-pointer"
             >
-              <Presentation className="h-4 w-4" />
-              <span>View 5-Slide Deck</span>
+              <Building2 className="h-4 w-4" />
+              <span>Explore 6 Domains</span>
             </button>
             <button
               onClick={() => onNavigate('detect')}
@@ -1407,11 +1407,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <button
                   onClick={() => {
                     setShowVideoModal(false);
-                    onNavigate('deck');
+                    onNavigate('solutions');
                   }}
                   className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white hover:bg-white/10 transition cursor-pointer"
                 >
-                  Inspect Pitch Deck
+                  Explore 6 Domains
                 </button>
               </div>
             </div>

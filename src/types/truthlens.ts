@@ -1,6 +1,5 @@
 export type NavTab =
   | 'overview'
-  | 'deck'
   | 'detect'
   | 'vault'
   | 'dampen'

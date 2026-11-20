@@ -17,8 +17,8 @@ TruthLens features an in-app **720p HD Product Demo & Pitch Walkthrough** (`/tru
 
 > **Accessing the Video in App:**
 > 1. In the **Overview** tab, click **"Watch 25s Pitch Video"** or play the embedded theater.
-> 2. In the **Pitch Deck** tab, toggle between the **5-Slide Deck Carousel** and **25s Pitch Video**.
-> 3. Direct download buttons for both **MP4 Video** and **PDF Deck** are available right on the page.
+> 2. Direct download button for the **720p MP4 Video** is available right on the page.
+> *(Official slide presentation is submitted as a separate PPT to judges).*
 
 ---
 
@@ -287,7 +287,7 @@ To test or present TruthLens live to judges and investors:
 - [x] **Protect:** Origin Vault invisible fingerprint ("My Real Vault" with Qdrant vector distance)
 - [x] **Heal & Enforce:** AI companion, evidence kit, takedown draft, Section 63 BSA certificate, and direct Cyber Cell (`1930` / `cybercrime.gov.in` / Tele-MANAS `14416`) integration
 - [x] **Simulate:** "What if I share this?", showing 24h harm if 100 people share with Donella Meadows stock-and-flow curves
-- [x] **Pitch Deck & Video Theater:** All 5 slides embedded in-app with high-res PNG previews + official PDF download + 25s synced video walkthrough with audio score
+- [x] **Video Pitch Theater:** 25s synced video walkthrough with audio score & voice narration (Slide deck submitted separately as official PPT)
 - [x] **Dual Localization:** Full English & Hindi (हिंदी) UI with soothing cybernetic glow theme
 - [ ] **Chrome extension** (manifest prepared; standalone extension in progress)
 - [ ] **8 Additional Indian languages** (EN + HI completed; regional language pack pending backend tokenization)

@@ -31,7 +31,6 @@ import { VaultView } from './components/VaultView';
 import { DampenView } from './components/DampenView';
 import { HealLegalView } from './components/HealLegalView';
 import { SolutionsView } from './components/SolutionsView';
-import { PitchDeckView } from './components/PitchDeckView';
 import { SystemApiView } from './components/SystemApiView';
 
 const NAV_ITEMS: {
@@ -39,7 +38,6 @@ const NAV_ITEMS: {
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
   { id: 'overview', icon: LayoutDashboard },
-  { id: 'deck', icon: Presentation },
   { id: 'detect', icon: ScanSearch },
   { id: 'vault', icon: Fingerprint },
   { id: 'dampen', icon: Flame },
@@ -236,10 +234,6 @@ export default function App() {
             />
           )}
 
-          {activeTab === 'deck' && (
-            <PitchDeckView lang={lang} onNavigate={setActiveTab} />
-          )}
-
           {activeTab === 'detect' && (
             <ForensicsView
               client={client}
@@ -293,7 +287,7 @@ export default function App() {
         className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-[#060b1f]/95 backdrop-blur-lg lg:hidden"
         aria-label="Mobile navigation"
       >
-        <div className="grid grid-cols-8 gap-0.5 px-0.5 py-1.5">
+        <div className="grid grid-cols-7 gap-0.5 px-0.5 py-1.5">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const active = activeTab === item.id;
@@ -301,12 +295,12 @@ export default function App() {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex flex-col items-center justify-center rounded-xl py-1 text-[9px] font-medium transition cursor-pointer ${
+                className={`flex flex-col items-center justify-center rounded-xl py-1 text-[10px] font-medium transition cursor-pointer ${
                   active ? 'bg-[#10D4A2]/15 text-[#10D4A2]' : 'text-slate-400'
                 }`}
               >
-                <Icon className="h-3.5 w-3.5 mb-0.5" />
-                <span className="truncate max-w-[42px]">{tr.nav[item.id].split(' ')[0]}</span>
+                <Icon className="h-4 w-4 mb-0.5" />
+                <span className="truncate max-w-[48px]">{tr.nav[item.id].split(' ')[0]}</span>
               </button>
             );
           })}
