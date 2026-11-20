@@ -57,6 +57,7 @@ const CAUSAL_NODES = [
     label: 'Creator / Forger',
     sub: 'AI Tools & Synthetic Audio/Video',
     icon: Lock,
+    image: '/reactions/node1_creator.png',
     leverage: 'L1 — AT CREATION',
     leverageTitle: 'Origin Derivative Vault (Qdrant)',
     leverageDesc:
@@ -71,6 +72,7 @@ const CAUSAL_NODES = [
     label: 'Platform & Feeds',
     sub: 'Algorithm Boosts Sensational Outrage',
     icon: Eye,
+    image: '/reactions/node2_platform.png',
     leverage: 'L0 — EDGE FORENSICS',
     leverageTitle: 'Zero-Cloud Multimodal Gate',
     leverageDesc:
@@ -85,6 +87,7 @@ const CAUSAL_NODES = [
     label: 'Viral Sharers',
     sub: 'WhatsApp Forwards & Bot Farms',
     icon: Flame,
+    image: '/reactions/node3_sharers.png',
     leverage: 'L2 — AT AMPLIFICATION',
     leverageTitle: '15s Cognitive Cooling + Outrage Guardrail',
     leverageDesc:
@@ -99,6 +102,7 @@ const CAUSAL_NODES = [
     label: 'Targeted Victim',
     sub: 'Anxiety, Shame, Extortion',
     icon: HeartHandshake,
+    image: '/reactions/node4_victim.png',
     leverage: 'L3 — AT VICTIM',
     leverageTitle: 'Balancing Loop: Heal + Debunk + Law',
     leverageDesc:
@@ -418,31 +422,42 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <button
                 key={node.id}
                 onClick={() => setSelectedNodeId(node.id)}
-                className={`group relative flex flex-col items-start rounded-2xl border p-5 text-left transition duration-200 cursor-pointer ${
+                className={`group relative flex flex-col items-start overflow-hidden rounded-2xl border text-left transition duration-200 cursor-pointer ${
                   isSelected
                     ? 'border-[#10D4A2] bg-[#10D4A2]/15 shadow-[0_0_25px_rgba(16,212,162,0.3)] scale-[1.02]'
                     : `border-white/10 bg-[#050919]/60 hover:border-white/30 hover:bg-white/[0.04] ${node.glowColor}`
                 }`}
               >
-                <div className="flex w-full items-center justify-between">
-                  <span className="font-mono text-xs font-extrabold text-[#10D4A2] flex items-center gap-1.5">
-                    <Icon className="h-4 w-4" />
+                {/* Visual Node Diagram */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-black/40 border-b border-white/10">
+                  <img
+                    src={node.image}
+                    alt={node.label}
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050919] via-transparent to-transparent opacity-70" />
+                  <span className="absolute top-2.5 left-2.5 rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 font-mono text-[10px] font-extrabold text-[#10D4A2] border border-[#10D4A2]/30 flex items-center gap-1">
+                    <Icon className="h-3 w-3" />
                     NODE {node.step}
                   </span>
-                  <span className={`rounded-full border px-2 py-0.5 text-[10px] font-bold ${node.badgeColor}`}>
+                  <span className={`absolute top-2.5 right-2.5 rounded-full border px-2 py-0.5 text-[10px] font-bold backdrop-blur-md bg-black/60 ${node.badgeColor}`}>
                     {node.leverage.split(' — ')[0]}
                   </span>
                 </div>
-                {node.id === AI_RECOMMENDED_NODE && (
-                  <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-amber-400/20 border border-amber-400/30 px-2 py-0.5 text-[10px] font-bold text-amber-300">
-                    <Sparkles className="h-3 w-3" />
-                    AI PICK • MAX HARM REDUCTION
-                  </span>
-                )}
-                <div className="mt-2.5 font-display text-lg font-bold text-white">
-                  {node.label}
+
+                <div className="p-4 w-full">
+                  {node.id === AI_RECOMMENDED_NODE && (
+                    <span className="mb-2 inline-flex items-center gap-1 rounded-full bg-amber-400/20 border border-amber-400/30 px-2 py-0.5 text-[10px] font-bold text-amber-300">
+                      <Sparkles className="h-3 w-3" />
+                      AI PICK • MAX HARM REDUCTION
+                    </span>
+                  )}
+                  <div className="font-display text-base font-bold text-white">
+                    {node.label}
+                  </div>
+                  <div className="text-xs text-slate-400 mt-0.5">{node.sub}</div>
                 </div>
-                <div className="text-xs text-slate-400 mt-0.5">{node.sub}</div>
+
                 {idx < CAUSAL_NODES.length - 1 && (
                   <ArrowRight className="pointer-events-none absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-slate-500 lg:block z-10" />
                 )}
