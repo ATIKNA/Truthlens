@@ -6,6 +6,7 @@ import {
   Brain,
   Building2,
   CheckCircle2,
+  ChevronRight,
   Cpu,
   Download,
   Eye,
@@ -19,6 +20,7 @@ import {
   Landmark,
   Layers,
   Lock,
+  MapPin,
   MessageSquare,
   Newspaper,
   Play,
@@ -29,10 +31,12 @@ import {
   Shield,
   ShieldAlert,
   ShieldCheck,
+  ShieldQuestion,
   ShoppingBag,
   Sparkles,
   TrendingDown,
   UploadCloud,
+  UserCheck,
   Users,
   Video,
   Volume2,
@@ -195,6 +199,177 @@ const VERTICAL_SUMMARY: {
   },
 ];
 
+const USE_CASE_STORIES = [
+  {
+    id: 'priya',
+    persona: 'Priya Sharma (Age 21)',
+    role: 'University Student & Creator',
+    location: 'New Delhi, India',
+    badge: 'Social & Harassment Defense',
+    badgeColor: 'border-rose-500/40 bg-rose-500/15 text-rose-300',
+    accentColor: '#f43f5e',
+    crisisTitle: 'Non-Consensual Morphed Deepfake in 8 WhatsApp Groups',
+    crisisDesc:
+      'A cyber-blackmailer uses an AI face-swap app to morph Priya’s college photo onto explicit media, broadcasting it into student WhatsApp groups with extortion demands.',
+    impactWithout: 'Victim deletes social media, suffers acute trauma & panic, police complaint delayed by 3 weeks.',
+    impactWith: 'Fake debunked in 2 minutes, R₀ virality collapsed below 1.0, court-ready BSA 63 certificate filed to 1930 Cyber Cell within the hour.',
+    steps: [
+      {
+        num: '01',
+        title: 'Instant Zero-Cloud ELA Heatmap Scan',
+        stage: 'L0 Forensics',
+        tech: 'Gemma On-Device + Error Level Analysis',
+        detail:
+          'Priya drags the screenshot into TruthLens. Within 1.4 seconds, pixel recompression quantization reveals a 94% splice seam anomaly around the facial jawline. Photo never leaves her phone.',
+        targetTab: 'detect' as NavTab,
+        cta: 'Launch ELA Scanner in Detect',
+      },
+      {
+        num: '02',
+        title: 'Generate WhatsApp Debunk Sticker Card',
+        stage: 'L3 Victim Counter-Narrative',
+        tech: 'PNG-8 Base64 Generator',
+        detail:
+          'TruthLens instantly creates a 512×512 high-contrast debunk sticker: "⚠️ TRUTHLENS VERIFIED DEEPFAKE • DO NOT FORWARD". Friends forward the sticker into group chats, killing rumor momentum.',
+        targetTab: 'heal' as NavTab,
+        cta: 'Generate Debunk Sticker in Heal',
+      },
+      {
+        num: '03',
+        title: 'WhatsApp 15s Cognitive Cooling Friction',
+        stage: 'L2 Amplification Guardrail',
+        tech: 'Donella Meadows Systems Engine',
+        detail:
+          'OpenWA gateway injects a 15-second behavioral pause before group forwards. The Donella Meadows stock-and-flow virality curve causes an 82% abandonment rate, dropping R₀ from 3.4 to 0.65.',
+        targetTab: 'dampen' as NavTab,
+        cta: 'Simulate Virality Friction in Dampen',
+      },
+      {
+        num: '04',
+        title: 'Section 63 BSA 2023 Certificate & 1930 Cyber Cell Filing',
+        stage: 'L3 Statutory Legal Enforcement',
+        tech: 'Sec 63 BSA + Sec 67C IT Act / Sec 94 BNSS',
+        detail:
+          'TruthLens auto-compiles a court-admissible Section 63 BSA digital certificate with SHA-256 hash, generates a Jamtara/Mewat ISP CGNAT preservation notice, and opens direct filing to 1930.',
+        targetTab: 'heal' as NavTab,
+        cta: 'Inspect BSA 63 Dossier in Heal',
+      },
+    ],
+  },
+  {
+    id: 'vikram',
+    persona: 'Vikram Malhotra',
+    role: 'VP Finance & Treasury',
+    location: 'Mumbai, India',
+    badge: 'Fintech & BEC 2.0 Defense',
+    badgeColor: 'border-sky-500/40 bg-sky-500/15 text-sky-300',
+    accentColor: '#38bdf8',
+    crisisTitle: 'Executive Audio Deepfake ₹18 Lakh Wire Transfer Attack',
+    crisisDesc:
+      'A cyber-criminal generates a voice clone of the Managing Director using 30 seconds of YouTube interview audio, calling the accounts desk to authorize an urgent vendor payment.',
+    impactWithout: '₹18,00,000 lost to mule accounts in 4 minutes; funds laundered via UPI before bank alerts trigger.',
+    impactWith: '11.2 kHz vocoder cutoff detected in 800ms; Qdrant vector mismatch freezes wire transfer at the policy gate.',
+    steps: [
+      {
+        num: '01',
+        title: 'SciPy 11.2 kHz FFT Neural Vocoder Shelf Detection',
+        stage: 'L0 Audio FFT',
+        tech: 'Glottal Pulse Kurtosis + FFT Spectrum',
+        detail:
+          'The voice note is fed through TruthLens audio forensics. The FFT spectrum shows a distinct steep shelf cutoff at 11.2 kHz and an abnormal glottal crest factor, characteristic of ElevenLabs voice models.',
+        targetTab: 'detect' as NavTab,
+        cta: 'Run Audio Voice Note FFT',
+      },
+      {
+        num: '02',
+        title: 'Qdrant Origin Vault Biometric Distance Check',
+        stage: 'L1 Pre-Creation Seal',
+        tech: 'Perceptual 64-bit dHash Vector Search',
+        detail:
+          'The call audio vector is compared against the Executive Director’s registered voice profile in Qdrant collection truthlens_vault. Hamming distance is 34 (threshold ≤ 10), failing authenticity.',
+        targetTab: 'vault' as NavTab,
+        cta: 'Inspect Origin Vault in Vault',
+      },
+      {
+        num: '03',
+        title: 'Automated Wire Transfer Policy Gate Freeze',
+        stage: 'L1 Transaction Gate',
+        tech: 'Fintech / Banking Policy Gate Simulator',
+        detail:
+          'TruthLens triggers an automated webhook that blocks RTGS execution, flags the target account, and prompts for multi-factor in-person biometric challenge.',
+        targetTab: 'solutions' as NavTab,
+        cta: 'Test Fintech Domain Gate',
+      },
+      {
+        num: '04',
+        title: 'Emergency Sec 94 BNSS Telecom Preservation Order',
+        stage: 'L3 Compliance & Legal',
+        tech: 'Sec 67C IT Act Preservation Notice',
+        detail:
+          'Generates a statutory preservation notice ordering the VoIP gateway carrier to freeze IP logs, CGNAT allocations, and call-detail records for the National Cyber Crime Reporting Portal.',
+        targetTab: 'heal' as NavTab,
+        cta: 'Generate Telecom Preservation Notice',
+      },
+    ],
+  },
+  {
+    id: 'ananya',
+    persona: 'Ananya Deshmukh',
+    role: 'Senior Fact-Checking Editor',
+    location: 'Bengaluru, India',
+    badge: 'Journalism & Civic Integrity',
+    badgeColor: 'border-purple-500/40 bg-purple-500/15 text-purple-300',
+    accentColor: '#a855f7',
+    crisisTitle: 'Election Eve UGC Video Forgery with Synced Speech',
+    crisisDesc:
+      'At 11 PM on election eve, an unverified breaking-news UGC video showing an election candidate supposedly withdrawing from the race is forwarded across WhatsApp political groups.',
+    impactWithout: 'Misinformation causes thousands of confused voters to stay home; retractions the next morning are useless.',
+    impactWith: 'Newsroom validates C2PA cryptographic signature mismatch in 2s, publishes verified debunk ticker before broadcast.',
+    steps: [
+      {
+        num: '01',
+        title: 'Sub-2s Direct URL Provenance Ingestion',
+        stage: 'L0 Provenance',
+        tech: 'Google SynthID + C2PA Manifest Reader',
+        detail:
+          'Ananya pastes the breaking video URL into TruthLens. The system inspects C2PA digital credentials and IPTC generative metadata, confirming the media lacks authentic hardware camera signatures.',
+        targetTab: 'detect' as NavTab,
+        cta: 'Analyze Direct URL in Detect',
+      },
+      {
+        num: '02',
+        title: 'Donella Meadows 24h Amplification Forecaster',
+        stage: 'L2 Outrage Modeling',
+        tech: 'Stock-and-Flow Virality Differential Equation',
+        detail:
+          'The systems engine simulates 100 seed forwards across 24 hours, alerting the newsroom that unmitigated spread will reach 140,000 citizens within 4 hours if not counteracted.',
+        targetTab: 'dampen' as NavTab,
+        cta: 'Open 24h Virality Simulator',
+      },
+      {
+        num: '03',
+        title: 'Rule 3(2)(b) 24h Emergency Intermediary Takedown',
+        stage: 'L3 Platform Compliance',
+        tech: 'IT Rules 2021 Statutory Notice Generator',
+        detail:
+          'TruthLens automatically drafts formal Rule 3(2)(b) removal notices citing Indian election media guidelines, addressed directly to Meta & YouTube Grievance Officers.',
+        targetTab: 'heal' as NavTab,
+        cta: 'Draft 24h Takedown Notice',
+      },
+      {
+        num: '04',
+        title: 'Live Newsroom Provenance Ticker Broadcast',
+        stage: 'L0 Civic Verification',
+        tech: 'Newsrooms & UGC Domain Playbook',
+        detail:
+          'The TV channel runs an on-screen TruthLens verified debunk badge with ELA heatmap proof, halting the political weaponization of the deepfake.',
+        targetTab: 'solutions' as NavTab,
+        cta: 'Open Journalism Domain Playbook',
+      },
+    ],
+  },
+];
+
 export const OverviewView: React.FC<OverviewViewProps> = ({
   lang,
   health,
@@ -207,6 +382,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   const tr = t(lang);
   const [selectedNodeId, setSelectedNodeId] = useState<string>('sharers');
   const [showVideoModal, setShowVideoModal] = useState<boolean>(false);
+  const [activeStoryId, setActiveStoryId] = useState<string>('priya');
+  const [activeStoryStep, setActiveStoryStep] = useState<number>(0);
+  const [flowViewMode, setFlowViewMode] = useState<'story' | 'diagram'>('story');
+
+  const activeStory = USE_CASE_STORIES.find((s) => s.id === activeStoryId) ?? USE_CASE_STORIES[0];
+  const activeStepData = activeStory.steps[activeStoryStep] ?? activeStory.steps[0];
   const activeNode = CAUSAL_NODES.find((n) => n.id === selectedNodeId) ?? CAUSAL_NODES[2];
 
   return (
@@ -560,6 +741,258 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             );
           })}
         </div>
+      </section>
+
+      {/* Interactive Story Explorer: How TruthLens Operates in the Real World */}
+      <section className="relative overflow-hidden rounded-3xl border border-sky-500/30 bg-[#08102e]/95 p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-white/10 pb-5">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#10D4A2]">
+              <Sparkles className="h-4 w-4" />
+              <span>Real-World User Journeys &bull; Interactive Flow Simulation</span>
+            </div>
+            <h2 className="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">
+              How to Use TruthLens: 3 Real-World Crisis Stories
+            </h2>
+            <p className="mt-1 text-sm text-slate-300 max-w-2xl">
+              Walk through realistic Indian scenarios to see how TruthLens transforms a devastating deepfake crisis into rapid forensic proof, behavioral friction, and statutory legal justice.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <div className="inline-flex rounded-xl border border-white/10 bg-[#050919] p-1">
+              <button
+                onClick={() => setFlowViewMode('story')}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${
+                  flowViewMode === 'story'
+                    ? 'bg-[#10D4A2] text-[#050919]'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                <Users className="h-3.5 w-3.5" />
+                Story Stepper
+              </button>
+              <button
+                onClick={() => setFlowViewMode('diagram')}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${
+                  flowViewMode === 'diagram'
+                    ? 'bg-sky-400 text-[#050919]'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                <Layers className="h-3.5 w-3.5" />
+                Pipeline Graphic
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {flowViewMode === 'diagram' ? (
+          /* High-Resolution Pipeline Architecture Flowchart Display */
+          <div className="space-y-4">
+            <div className="group relative overflow-hidden rounded-2xl border border-white/15 bg-black/60 shadow-2xl">
+              <img
+                src="/reactions/interactive_usecase_flow.png"
+                alt="TruthLens End-to-End Forensics and Systems Leverage Pipeline"
+                className="w-full object-contain transition group-hover:scale-[1.01] duration-300"
+              />
+              <div className="absolute top-3 left-3 inline-flex items-center gap-2 rounded-xl bg-black/80 px-3 py-1.5 text-xs font-semibold text-[#10D4A2] border border-[#10D4A2]/30 backdrop-blur-md">
+                <span className="h-2 w-2 rounded-full bg-[#10D4A2] animate-pulse" />
+                <span>4-Stage Causal Intervention Architecture</span>
+              </div>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-4 pt-1">
+              <div className="rounded-xl border border-sky-500/20 bg-[#050919] p-3">
+                <div className="text-[10px] font-mono text-sky-400 uppercase">Stage 01: Ingestion</div>
+                <div className="text-sm font-semibold text-white mt-0.5">&lt; 50ms Sandbox</div>
+                <p className="text-xs text-slate-400 mt-1">Zero PII isolation &bull; SHA-256 + 64-bit dHash calculated.</p>
+              </div>
+              <div className="rounded-xl border border-emerald-500/20 bg-[#050919] p-3">
+                <div className="text-[10px] font-mono text-[#10D4A2] uppercase">Stage 02: Edge Forensics</div>
+                <div className="text-sm font-semibold text-white mt-0.5">&lt; 1.8s ELA Scan</div>
+                <p className="text-xs text-slate-400 mt-1">Error Level Analysis heatmap + SciPy 11.2 kHz voice FFT.</p>
+              </div>
+              <div className="rounded-xl border border-amber-500/20 bg-[#050919] p-3">
+                <div className="text-[10px] font-mono text-amber-300 uppercase">Stage 03: Amplification</div>
+                <div className="text-sm font-semibold text-white mt-0.5">15s Cooling Friction</div>
+                <p className="text-xs text-slate-400 mt-1">R₀ virality reproduction drops from 3.4 to 0.65.</p>
+              </div>
+              <div className="rounded-xl border border-rose-500/20 bg-[#050919] p-3">
+                <div className="text-[10px] font-mono text-rose-300 uppercase">Stage 04: Legal Proof</div>
+                <div className="text-sm font-semibold text-white mt-0.5">Court Certificate</div>
+                <p className="text-xs text-slate-400 mt-1">Section 63 BSA + 1930 Cyber Cell + Sec 67C ISP freeze.</p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* Interactive Story Stepper & Usability Walkthrough */
+          <div className="space-y-6">
+            {/* Persona Switcher Strip */}
+            <div className="grid gap-3 sm:grid-cols-3">
+              {USE_CASE_STORIES.map((story) => {
+                const isSelected = story.id === activeStory.id;
+                return (
+                  <button
+                    key={story.id}
+                    onClick={() => {
+                      setActiveStoryId(story.id);
+                      setActiveStoryStep(0);
+                    }}
+                    className={`rounded-2xl border p-4 text-left transition duration-200 cursor-pointer ${
+                      isSelected
+                        ? 'border-[#10D4A2] bg-[#10D4A2]/10 shadow-[0_0_20px_rgba(16,212,162,0.2)]'
+                        : 'border-white/10 bg-[#050919]/70 hover:border-white/20 hover:bg-[#07112d]'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className={`rounded-full border px-2 py-0.5 text-[10px] font-bold ${story.badgeColor}`}>
+                        {story.badge}
+                      </span>
+                      <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                        <MapPin className="h-3 w-3 text-slate-400" />
+                        {story.location}
+                      </span>
+                    </div>
+                    <div className="mt-2.5 font-display text-base font-bold text-white flex items-center gap-1.5">
+                      <UserCheck className="h-4 w-4 text-[#10D4A2]" />
+                      {story.persona}
+                    </div>
+                    <div className="text-xs text-slate-300">{story.role}</div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Crisis Problem vs Solution Box */}
+            <div className="rounded-2xl border border-white/10 bg-[#050919]/90 p-5 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div className="space-y-1">
+                  <div className="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+                    <ShieldAlert className="h-4 w-4" /> The Real-World Attack Scenario
+                  </div>
+                  <h3 className="font-display text-lg font-bold text-white">
+                    {activeStory.crisisTitle}
+                  </h3>
+                  <p className="text-xs leading-relaxed text-slate-300">
+                    {activeStory.crisisDesc}
+                  </p>
+                </div>
+              </div>
+
+              {/* Before vs After Impact Comparison Strip */}
+              <div className="grid gap-3 sm:grid-cols-2 pt-2 border-t border-white/10">
+                <div className="rounded-xl border border-rose-500/25 bg-rose-500/5 p-3">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-rose-400">
+                    Without TruthLens (Whack-a-Mole)
+                  </div>
+                  <p className="mt-1 text-xs text-rose-200/90 leading-relaxed">
+                    {activeStory.impactWithout}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-3">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#10D4A2]">
+                    With TruthLens (Systems Intervention)
+                  </div>
+                  <p className="mt-1 text-xs text-emerald-200/90 leading-relaxed">
+                    {activeStory.impactWith}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 4-Step Interactive Progress Stepper */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs text-slate-400 px-1">
+                <span className="font-semibold uppercase tracking-wider text-white">
+                  Intervention Steps: Click to Explore Action &amp; Live Proof
+                </span>
+                <span>Step {activeStoryStep + 1} of 4</span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                {activeStory.steps.map((st, idx) => {
+                  const isActive = idx === activeStoryStep;
+                  return (
+                    <button
+                      key={st.num}
+                      onClick={() => setActiveStoryStep(idx)}
+                      className={`rounded-xl border p-3 text-left transition cursor-pointer ${
+                        isActive
+                          ? 'border-[#10D4A2] bg-[#10D4A2]/15 shadow-[0_0_15px_rgba(16,212,162,0.25)]'
+                          : 'border-white/10 bg-[#050919] hover:border-white/25 hover:bg-[#08122d]'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`font-mono text-xs font-bold ${isActive ? 'text-[#10D4A2]' : 'text-slate-400'}`}>
+                          STEP {st.num}
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-mono">
+                          {st.stage}
+                        </span>
+                      </div>
+                      <div className="mt-1.5 text-xs font-semibold text-white truncate">
+                        {st.title}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Active Step Detailed Action Card */}
+              <div className="rounded-2xl border border-[#10D4A2]/30 bg-gradient-to-r from-[#071333] via-[#091b42] to-[#050e26] p-5 sm:p-6 shadow-xl space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-white/10 pb-3">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#10D4A2] text-sm font-bold text-[#050919] shadow-[0_0_15px_rgba(16,212,162,0.4)]">
+                      {activeStepData.num}
+                    </span>
+                    <div>
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-[#10D4A2]">
+                        {activeStepData.stage} &bull; {activeStepData.tech}
+                      </div>
+                      <h4 className="font-display text-base sm:text-lg font-bold text-white">
+                        {activeStepData.title}
+                      </h4>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => onNavigate(activeStepData.targetTab)}
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#10D4A2] px-4 py-2 text-xs font-bold text-[#050919] hover:bg-[#00e8ac] transition shadow-[0_0_20px_rgba(16,212,162,0.3)] cursor-pointer shrink-0"
+                  >
+                    <span>{activeStepData.cta}</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+
+                <p className="text-sm leading-relaxed text-slate-200">
+                  {activeStepData.detail}
+                </p>
+
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-xs text-slate-400">
+                  <span className="flex items-center gap-1.5 text-emerald-300">
+                    <CheckCircle2 className="h-4 w-4 text-[#10D4A2]" />
+                    Real-time verification ready for testing
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setActiveStoryStep((prev) => (prev > 0 ? prev - 1 : 3))}
+                      className="px-2.5 py-1 rounded-lg border border-white/10 hover:bg-white/10 text-white cursor-pointer"
+                    >
+                      &larr; Prev Step
+                    </button>
+                    <button
+                      onClick={() => setActiveStoryStep((prev) => (prev < 3 ? prev + 1 : 0))}
+                      className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium cursor-pointer"
+                    >
+                      Next Step &rarr;
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Interactive Donella Meadows Causal Graph & Leverage Points */}
