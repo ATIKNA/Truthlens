@@ -3,6 +3,7 @@ import {
   Check,
   Copy,
   Download,
+  ExternalLink,
   FileText,
   Gavel,
   HeartHandshake,
@@ -28,6 +29,7 @@ interface HealLegalViewProps {
   client: TruthLensClient;
   lang: Language;
   sharedMedia: SharedMediaContext;
+  initialSubTab?: HealSubTab;
 }
 
 type HealSubTab = 'coach' | 'debunk' | 'dossier' | 'takedown';
@@ -51,9 +53,10 @@ export const HealLegalView: React.FC<HealLegalViewProps> = ({
   client,
   lang,
   sharedMedia,
+  initialSubTab = 'coach',
 }) => {
   const tr = t(lang);
-  const [activeTab, setActiveTab] = useState<HealSubTab>('coach');
+  const [activeTab, setActiveTab] = useState<HealSubTab>(initialSubTab);
 
   // Crisis Coach state
   const [messages, setMessages] = useState<CoachMessage[]>([
@@ -326,24 +329,71 @@ export const HealLegalView: React.FC<HealLegalViewProps> = ({
             </div>
 
             <div className="rounded-2xl border border-rose-500/25 bg-rose-950/20 p-5 space-y-2.5">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-rose-300">
-                <PhoneCall className="h-4 w-4" />
-                Immediate India Support &amp; Counselor Connect
-              </div>
-              {[
-                { name: 'National Cyber Crime Helpline', detail: 'Dial 1930 (24×7 Emergency)' },
-                { name: 'NCRP Official Portal', detail: 'cybercrime.gov.in (Women/Child Fast-Track)' },
-                { name: 'iCall Psychosocial Helpline (TISS)', detail: '9152987821 • Mon–Sat' },
-                { name: 'Tele-MANAS Mental Health (MoHFW)', detail: 'Dial 14416 (Free, Hindi + 20 languages)' },
-              ].map((h) => (
-                <div
-                  key={h.name}
-                  className="flex items-center justify-between rounded-lg bg-[#050919]/80 px-3 py-2 text-xs"
-                >
-                  <span className="font-medium text-white">{h.name}</span>
-                  <span className="font-mono text-[11px] text-[#10D4A2]">{h.detail}</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-rose-300">
+                  <PhoneCall className="h-4 w-4" />
+                  National Cyber Crime Reporting &amp; Crisis Helplines
                 </div>
-              ))}
+                <span className="text-[10px] font-mono text-[#10D4A2] bg-[#10D4A2]/10 px-2 py-0.5 rounded-full border border-[#10D4A2]/30">
+                  24x7 Active
+                </span>
+              </div>
+              <div className="space-y-2">
+                {[
+                  {
+                    name: 'National Cyber Crime Helpline',
+                    detail: 'Dial 1930',
+                    actionLabel: 'Call 1930',
+                    href: 'tel:1930',
+                    desc: 'Direct call to Indian National Cyber Crime coordinator (immediate bank freeze & emergency IO dispatch)',
+                    color: 'border-rose-500/40 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20',
+                  },
+                  {
+                    name: 'NCRP Cyber Crime Portal',
+                    detail: 'cybercrime.gov.in',
+                    actionLabel: 'Open NCRP Portal',
+                    href: 'https://cybercrime.gov.in',
+                    desc: 'Ministry of Home Affairs official portal for women/child non-consensual deepfake complaints',
+                    color: 'border-[#10D4A2]/40 bg-[#10D4A2]/10 text-[#10D4A2] hover:bg-[#10D4A2]/20',
+                  },
+                  {
+                    name: 'Tele-MANAS Mental Health',
+                    detail: 'Dial 14416',
+                    actionLabel: 'Call 14416',
+                    href: 'tel:14416',
+                    desc: 'Free 24x7 trauma counselors across Hindi, English, and 20 Indian languages',
+                    color: 'border-sky-500/40 bg-sky-500/10 text-sky-300 hover:bg-sky-500/20',
+                  },
+                  {
+                    name: 'iCall Psychosocial Helpline',
+                    detail: '9152987821',
+                    actionLabel: 'Call Helpline',
+                    href: 'tel:9152987821',
+                    desc: 'Tata Institute of Social Sciences (TISS) trauma counseling for online harassment victims',
+                    color: 'border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20',
+                  },
+                ].map((h) => (
+                  <div
+                    key={h.name}
+                    className="rounded-xl border border-white/10 bg-[#050919]/90 p-3 text-xs space-y-1.5"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-white text-sm">{h.name}</span>
+                      <a
+                        href={h.href}
+                        target={h.href.startsWith('http') ? '_blank' : '_self'}
+                        rel="noreferrer"
+                        className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-bold transition ${h.color}`}
+                      >
+                        {h.actionLabel}
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                    <div className="font-mono text-[11px] text-[#10D4A2]">{h.detail}</div>
+                    <p className="text-[11px] text-slate-400 leading-relaxed">{h.desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -478,15 +528,36 @@ export const HealLegalView: React.FC<HealLegalViewProps> = ({
               <div className="rounded-xl bg-[#050919] p-3 font-mono text-[11px] text-slate-400 space-y-1">
                 <div>Exhibit: {sharedMedia.filename || 'forensic_exhibit.png'}</div>
                 <div>dHash: {sharedMedia.dhash || 'Auto-computed on generate'}</div>
+                <div className="text-[#10D4A2] pt-1">Target Authority: Cyber Crime Police Station / NCRP</div>
               </div>
+              
               <button
                 onClick={handleGenerateDossier}
                 disabled={dossierLoading}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-rose-500 px-4 py-2.5 text-sm font-bold text-white hover:bg-rose-600 cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-rose-500 px-4 py-3 text-sm font-bold text-white hover:bg-rose-600 transition shadow-[0_0_20px_rgba(244,63,94,0.3)] cursor-pointer"
               >
                 <ShieldAlert className="h-4 w-4" />
-                {dossierLoading ? 'Compiling 3 Statutory Docs...' : 'Generate Legal Evidence Dossier'}
+                {dossierLoading ? 'Compiling 3 Statutory Docs...' : 'Generate Official Cyber Cell Complaint Kit'}
               </button>
+
+              <div className="rounded-xl border border-sky-500/25 bg-sky-950/20 p-3 space-y-2">
+                <div className="text-[11px] font-bold text-sky-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Direct Online Filing Portal
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  After generating the dossier below, copy or download the complaint and submit it directly to the official government portal:
+                </p>
+                <a
+                  href="https://cybercrime.gov.in"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-lg border border-[#10D4A2]/40 bg-[#10D4A2]/15 px-3 py-2 text-xs font-bold text-[#10D4A2] hover:bg-[#10D4A2]/25 transition"
+                >
+                  Go to cybercrime.gov.in (NCRP)
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
           </div>
 
