@@ -762,13 +762,13 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#10D4A2]">
               <Sparkles className="h-4 w-4" />
-              <span>Real-World User Journeys &bull; Interactive Flow Simulation</span>
+              <span>🔥 From Panic to Justice &bull; 4-Stage Crisis Interceptor</span>
             </div>
             <h2 className="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">
-              How to Use TruthLens: 3 Real-World Crisis Stories
+              3 Real-World Attacks. 3 Instant Takedowns.
             </h2>
             <p className="mt-1 text-sm text-slate-300 max-w-2xl">
-              Walk through realistic Indian scenarios to see how TruthLens transforms a devastating deepfake crisis into rapid forensic proof, behavioral friction, and statutory legal justice.
+              See how Priya, Vikram, and Ananya stopped viral blackmail, &rupee;18L CFO audio scams, and election disinformation in under 2 minutes flat.
             </p>
           </div>
 
@@ -783,7 +783,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 }`}
               >
                 <Users className="h-3.5 w-3.5" />
-                Story Stepper
+                Swipe Crisis Deck
               </button>
               <button
                 onClick={() => setFlowViewMode('diagram')}
@@ -794,7 +794,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 }`}
               >
                 <Layers className="h-3.5 w-3.5" />
-                Pipeline Graphic
+                Architecture Map
               </button>
             </div>
           </div>
