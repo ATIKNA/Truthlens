@@ -7,12 +7,14 @@ import {
   FileText,
   Gavel,
   HeartHandshake,
+  Mic,
   PhoneCall,
   Send,
   ShieldAlert,
   Sparkles,
   Sticker,
   Volume2,
+  VolumeX,
   Wind,
 } from 'lucide-react';
 import type {
@@ -64,6 +66,7 @@ export const HealLegalView: React.FC<HealLegalViewProps> = ({
   ]);
   const [coachInput, setCoachInput] = useState('');
   const [breathingActive, setBreathingActive] = useState(false);
+  const [autoVoice, setAutoVoice] = useState(true);
 
   // Debunk Sticker state
   const [stickerLoading, setStickerLoading] = useState(false);
@@ -131,6 +134,17 @@ export const HealLegalView: React.FC<HealLegalViewProps> = ({
     }
 
     setMessages((prev) => [...prev, { role: 'user', text }, { role: 'coach', text: reply }]);
+    if (autoVoice) {
+      speakCoachReply(reply);
+    }
+  };
+
+  const triggerVoiceDistressDemo = () => {
+    const distress =
+      lang === 'hi'
+        ? 'कॉलेज ग्रुप में किसी ने मेरा डीपफेक वीडियो वायरल कर दिया है, मुझे बहुत घबराहट हो रही है...'
+        : 'Someone forwarded a morphed fake video of me into my university WhatsApp group. I am terrified, what should I do?';
+    sendCoachMessage(distress);
   };
 
   const handleGenerateSticker = async () => {
@@ -238,13 +252,28 @@ export const HealLegalView: React.FC<HealLegalViewProps> = ({
                     Trauma-informed voice &amp; text companion to break the Anxiety/Shame loop
                   </div>
                 </div>
-                <button
-                  onClick={() => speakCoachReply(messages[messages.length - 1]?.text ?? tr.crisisWelcome)}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#10D4A2]/30 bg-[#10D4A2]/10 px-3 py-1.5 text-xs font-semibold text-[#10D4A2] hover:bg-[#10D4A2]/20 cursor-pointer"
-                >
-                  <Volume2 className="h-3.5 w-3.5" />
-                  Speak Aloud
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setAutoVoice(!autoVoice)}
+                    className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-semibold transition cursor-pointer ${
+                      autoVoice
+                        ? 'border-[#10D4A2]/40 bg-[#10D4A2]/15 text-[#10D4A2]'
+                        : 'border-white/10 bg-white/5 text-slate-400'
+                    }`}
+                    title="Toggle Gemini Live auto-voice speech"
+                  >
+                    {autoVoice ? <Volume2 className="h-3.5 w-3.5" /> : <VolumeX className="h-3.5 w-3.5" />}
+                    <span>Voice {autoVoice ? 'ON' : 'OFF'}</span>
+                  </button>
+                  <button
+                    onClick={triggerVoiceDistressDemo}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-rose-500/35 bg-rose-500/10 px-2.5 py-1.5 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 transition cursor-pointer"
+                    title="Simulate a real-time victim voice distress call"
+                  >
+                    <Mic className="h-3.5 w-3.5 text-rose-400 animate-pulse" />
+                    <span className="hidden sm:inline">1-Click Voice Demo</span>
+                  </button>
+                </div>
               </div>
 
               <div className="max-h-64 space-y-2.5 overflow-y-auto pr-1">
