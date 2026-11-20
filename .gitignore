@@ -14,13 +14,10 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Local env files
-.env
-.env.local
 .env.*.local
 
 # Editor & OS files
 .DS_Store
-.vscode/*
 !.vscode/extensions.json
 .idea/
 *.suo
@@ -31,3 +28,4 @@ pnpm-debug.log*
 
 # TypeScript build cache
 *.tsbuildinfo
+config.bat
