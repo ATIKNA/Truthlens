@@ -4,7 +4,7 @@ export const copy = {
   en: {
     tagline: 'Break the Deepfake Loop.',
     subtitle:
-      'Systems Thinking + Gemini AI to stop virality, protect mental health, and restore trust.',
+      'Deepfakes go viral in 2 hours. Takedowns take 2 days. TruthLens stops synthetic outrage before it spreads — powered by Google Gemini and Donella Meadows systems leverage points.',
     badge: 'BUILDATHON 2026 • INDIA • HYPOTHETICA',
     nav: {
       overview: 'Systems Map',
@@ -49,7 +49,7 @@ export const copy = {
   hi: {
     tagline: 'डीपफेक लूप को तोड़ें।',
     subtitle:
-      'सिस्टम्स थिंकिंग + Gemini AI: वायरलिटी रोकें, मानसिक स्वास्थ्य बचाएं और भरोसा बहाल करें।',
+      'डीपफेक 2 घंटे में वायरल होता है, पर टेकडाउन में 2 दिन लगते हैं। TruthLens वायरलिटी को फैलने से पहले ही रोकता है — Google Gemini और सिस्टम्स लेवरेज द्वारा संचालित।',
     badge: 'बिल्डैथॉन 2026 • भारत • हाइपोथेटिका',
     nav: {
       overview: 'सिस्टम्स मैप',

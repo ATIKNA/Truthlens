@@ -418,7 +418,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </h1>
 
             <p className="text-base leading-relaxed text-slate-300 sm:text-xl font-normal max-w-lg">
-              {tr.subtitle}
+              {lang === 'en'
+                ? 'Deepfakes go viral in 2 hours. Takedowns take 2 days. TruthLens stops synthetic outrage before it spreads — powered by Google Gemini and Donella Meadows systems leverage points.'
+                : tr.subtitle}
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
@@ -470,21 +472,25 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
             {/* Quick KPI Strip Beneath Hero Graphic */}
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full">
-              <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
-                <div className="text-[10px] text-slate-400 uppercase font-semibold">Damage Speed</div>
-                <div className="font-display text-base font-bold text-rose-400">2h viral</div>
+              <div className="rounded-xl border border-rose-500/25 bg-rose-500/10 p-2.5 text-center">
+                <div className="text-[10px] text-rose-300 uppercase font-bold tracking-wider">The Asymmetry</div>
+                <div className="font-display text-base font-extrabold text-rose-400">2h vs 2 Days</div>
+                <div className="text-[9px] text-slate-400">Viral in 2h &bull; Takedown in 2d</div>
               </div>
-              <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
-                <div className="text-[10px] text-slate-400 uppercase font-semibold">Edge Scan</div>
-                <div className="font-display text-base font-bold text-[#10D4A2]">&lt;2.0s</div>
+              <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-2.5 text-center">
+                <div className="text-[10px] text-emerald-300 uppercase font-bold tracking-wider">Edge Forensics</div>
+                <div className="font-display text-base font-extrabold text-[#10D4A2]">&lt;1.8s Real-Time</div>
+                <div className="text-[9px] text-slate-400">Zero-Cloud ELA Heatmap</div>
               </div>
-              <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
-                <div className="text-[10px] text-slate-400 uppercase font-semibold">Friction Pause</div>
-                <div className="font-display text-base font-bold text-amber-300">15s cooling</div>
+              <div className="rounded-xl border border-amber-500/25 bg-amber-500/10 p-2.5 text-center">
+                <div className="text-[10px] text-amber-300 uppercase font-bold tracking-wider">Cognitive Pause</div>
+                <div className="font-display text-base font-extrabold text-amber-300">15s Friction</div>
+                <div className="text-[9px] text-slate-400">Drops R₀ Virality by 82%</div>
               </div>
-              <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
-                <div className="text-[10px] text-slate-400 uppercase font-semibold">Deployments</div>
-                <div className="font-display text-base font-bold text-sky-400">6 Domains</div>
+              <div className="rounded-xl border border-sky-500/25 bg-sky-500/10 p-2.5 text-center">
+                <div className="text-[10px] text-sky-300 uppercase font-bold tracking-wider">Court Proof</div>
+                <div className="font-display text-base font-extrabold text-sky-400">Sec 63 BSA</div>
+                <div className="text-[9px] text-slate-400">1-Click 1930 Cyber Cell</div>
               </div>
             </div>
           </div>
@@ -497,13 +503,13 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-400">
               <Video className="h-4 w-4" />
-              <span>Product Pitch Walkthrough &bull; Investor Demo</span>
+              <span>25-Second Investor Pitch Trailer &bull; Systems Thesis</span>
             </div>
             <h2 className="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">
-              What TruthLens Does &amp; How to Upload for Live Demos
+              Watch 25 Seconds That Break the Deepfake Loop
             </h2>
             <p className="mt-1 text-sm text-slate-300">
-              High-impact 25-second investor pitch video, plus the 4-step real-time upload and multimodal forensic scanning pipeline.
+              Detection alone is dead on arrival. See how TruthLens intercepts synthetic outrage from creation to courtroom.
             </p>
           </div>
 
@@ -649,10 +655,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <ShieldAlert className="h-4 w-4" /> Systems Failure Modes
             </div>
             <h2 className="mt-0.5 font-display text-2xl font-bold text-white">
-              The Problem is a System: 3 Reinforcing Loops
+              The Asymmetry: Why Detection Alone is Dead on Arrival
             </h2>
             <p className="text-sm text-slate-400">
-              Deepfakes exploit human psychology and platform algorithms. Detection alone is always too late.
+              Deepfakes exploit human fear and algorithmic outrage. If you only detect, you&apos;ve already lost.
             </p>
           </div>
           <span className="hidden sm:inline-flex rounded-full bg-white/5 border border-white/10 px-3 py-1 text-xs text-slate-300">
@@ -663,20 +669,22 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         <div className="grid gap-5 md:grid-cols-3">
           {[
             {
-              title: '1. Virality Loop',
+              title: '1. The Outrage Firehose',
+              punchline: 'Lies sprint across India in 2 hours while truth is still tying its shoelaces.',
               icon: Flame,
               image: '/reactions/loop1_virality.png',
               alt: 'Reaction: WhatsApp forward storm radiating to groups',
               flow: 'AI Tool → Shocking Fake → Algorithm Boosts → More Shares',
               detail:
-                'Outrage-optimized feeds and WhatsApp forwards achieve exponential reach within 2 hours, long before manual moderation can respond.',
+                'Outrage-optimized feeds and WhatsApp forwards achieve exponential reach within 2 hours, long before manual platform moderation can respond.',
               accent: 'border-amber-500/35 bg-gradient-to-b from-amber-950/20 to-[#0b1229]/80 shadow-[0_0_25px_rgba(245,158,11,0.1)]',
               badge: 'text-amber-300 bg-amber-500/15 border-amber-500/30',
               iconColor: 'text-amber-400',
               reactionCaption: 'Forwarded 5x+ • Rapid group virality',
             },
             {
-              title: '2. Mental Health Loop',
+              title: '2. The Shame & Silence Spiral',
+              punchline: 'Extortionists monetize panic. TruthLens arms victims with instant proof.',
               icon: HeartHandshake,
               image: '/reactions/loop2_mental_health.png',
               alt: 'Reaction: Victim overwhelmed by notifications in distress',
@@ -689,7 +697,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               reactionCaption: 'Acute distress & panic • Isolation cycle',
             },
             {
-              title: '3. Trust Collapse Loop',
+              title: '3. The Liar’s Dividend',
+              punchline: 'When any video can be faked, genuine crimes get dismissed in court.',
               icon: ShieldAlert,
               image: '/reactions/loop3_trust_collapse.png',
               alt: 'Reaction: Shattered trust shield dividing society and victims',
@@ -732,6 +741,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     <Icon className={`h-5 w-5 ${loop.iconColor}`} />
                     {loop.title}
                   </h3>
+                  <div className="mt-1 text-[11px] font-semibold text-slate-300 italic">
+                    &ldquo;{loop.punchline}&rdquo;
+                  </div>
                   <div className="mt-2.5 rounded-xl bg-black/40 p-2.5 font-mono text-[11px] text-slate-200 border border-white/5">
                     {loop.flow}
                   </div>
@@ -1001,10 +1013,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#10D4A2]">
               <Layers className="h-4 w-4" />
-              Donella Meadows Systems Engine — Change the Structure, Not the Symptom
+              Donella Meadows Systems Law — Stop Whacking Moles. Change the Structure.
             </div>
             <h2 className="mt-1 font-display text-2xl font-bold text-white">
-              Interactive Causal Intervention Graph
+              Causal Intervention Graph: Strike at the Source of Virality
             </h2>
           </div>
           <span className="text-xs text-slate-400 bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl">
@@ -1093,13 +1105,13 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-[#10D4A2] flex items-center gap-1.5">
-              <Building2 className="h-4 w-4" /> Real-World Impact
+              <Building2 className="h-4 w-4" /> 6 Real-World Battlegrounds
             </div>
             <h2 className="mt-0.5 font-display text-2xl font-bold text-white">
-              Deployable Across 6 High-Impact Domains
+              Where Synthetic Media Meets High-Stakes Reality
             </h2>
             <p className="text-sm text-slate-400">
-              Real-time synthetic media forensics, identity liveness, and algorithmic content hygiene.
+              From WhatsApp student extortion to ₹18L CFO voice clones &mdash; battle-tested policy gates ready for deployment.
             </p>
           </div>
           <button
@@ -1173,9 +1185,14 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           </div>
 
           <div className="p-6 space-y-4">
-            <h3 className="font-display text-xl font-bold text-white">
-              Gemini Detects. Our Systems Engine Understands.
-            </h3>
+            <div>
+              <h3 className="font-display text-xl font-bold text-white">
+                Gemini Detects. Our Systems Engine Understands.
+              </h3>
+              <p className="mt-1 text-xs text-slate-300">
+                Sub-2s edge speed meets multimodal reasoning &mdash; zero cloud egress for user privacy, sovereign to India in asia-south1.
+              </p>
+            </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
                 {
