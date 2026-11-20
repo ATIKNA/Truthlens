@@ -228,6 +228,21 @@ export const ForensicsView: React.FC<ForensicsViewProps> = ({
         <div className="grid gap-6 lg:grid-cols-12">
           {/* Left Column: Upload & Nano Banana Safe Demo Presets */}
           <div className="space-y-4 lg:col-span-5">
+            {/* Funding Pitch Walkthrough Banner */}
+            <div className="rounded-xl border border-sky-500/30 bg-gradient-to-r from-sky-950/40 via-[#070e28] to-[#040816] p-3 shadow-md">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
+                  <Sparkles className="h-3.5 w-3.5" /> Pitch Demo: 1-Click Upload
+                </span>
+                <span className="rounded bg-sky-500/20 px-1.5 py-0.5 text-[10px] font-mono text-sky-300">
+                  Ready for VCs
+                </span>
+              </div>
+              <p className="mt-1 text-xs text-slate-300">
+                During live screen shares, drag any image, paste a link, or click a 1-click preset below to show instant ELA heatmaps &amp; C2PA credentials.
+              </p>
+            </div>
+
             <div
               onClick={() => fileInputRef.current?.click()}
               onDragOver={(e) => e.preventDefault()}

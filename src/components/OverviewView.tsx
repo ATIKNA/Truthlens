@@ -9,16 +9,20 @@ import {
   Cpu,
   Download,
   Eye,
+  FileText,
   Fingerprint,
   Flame,
   Gavel,
   Globe,
   HeartHandshake,
+  HelpCircle,
   Landmark,
   Layers,
   Lock,
   MessageSquare,
   Newspaper,
+  Play,
+  Presentation,
   Radio,
   RefreshCw,
   ScanSearch,
@@ -28,7 +32,10 @@ import {
   ShoppingBag,
   Sparkles,
   TrendingDown,
+  UploadCloud,
   Users,
+  Video,
+  X,
   Zap,
 } from 'lucide-react';
 import type {
@@ -198,6 +205,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 }) => {
   const tr = t(lang);
   const [selectedNodeId, setSelectedNodeId] = useState<string>('sharers');
+  const [showVideoModal, setShowVideoModal] = useState<boolean>(false);
   const activeNode = CAUSAL_NODES.find((n) => n.id === selectedNodeId) ?? CAUSAL_NODES[2];
 
   return (
@@ -240,18 +248,18 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 {tr.quickActions.scanNow}
               </button>
               <button
-                onClick={() => onNavigate('dampen')}
-                className="inline-flex items-center gap-2.5 rounded-xl border border-amber-500/40 bg-amber-500/10 px-5 py-3 text-sm font-bold text-amber-200 transition hover:bg-amber-500/20 hover:border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.15)] cursor-pointer"
+                onClick={() => setShowVideoModal(true)}
+                className="inline-flex items-center gap-2.5 rounded-xl border border-sky-400/40 bg-sky-500/10 px-5 py-3 text-sm font-bold text-sky-200 transition hover:bg-sky-500/20 hover:border-sky-300 shadow-[0_0_20px_rgba(56,189,248,0.2)] cursor-pointer"
               >
-                <Flame className="h-4 w-4 text-amber-400" />
-                {tr.quickActions.simulateSpread}
+                <Video className="h-4 w-4 text-sky-400 animate-pulse" />
+                <span>Watch 25s Pitch Video</span>
               </button>
               <button
-                onClick={() => onNavigate('heal')}
-                className="inline-flex items-center gap-2.5 rounded-xl border border-rose-500/40 bg-rose-500/10 px-5 py-3 text-sm font-bold text-rose-200 transition hover:bg-rose-500/20 hover:border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.15)] cursor-pointer"
+                onClick={() => onNavigate('deck')}
+                className="inline-flex items-center gap-2.5 rounded-xl border border-purple-500/40 bg-purple-500/10 px-5 py-3 text-sm font-bold text-purple-200 transition hover:bg-purple-500/20 hover:border-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.15)] cursor-pointer"
               >
-                <HeartHandshake className="h-4 w-4 text-rose-400" />
-                {tr.quickActions.openHeal}
+                <Presentation className="h-4 w-4 text-purple-400" />
+                <span>5-Slide Pitch Deck</span>
               </button>
             </div>
           </div>
@@ -295,6 +303,152 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
                 <div className="text-[10px] text-slate-400 uppercase font-semibold">Deployments</div>
                 <div className="font-display text-base font-bold text-sky-400">6 Domains</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Demo & Funding Pitch Walkthrough Showcase (Video + Step-by-Step Upload Guide) */}
+      <section className="relative overflow-hidden rounded-3xl border border-sky-500/25 bg-[#070e28]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-white/10 pb-5">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-400">
+              <Video className="h-4 w-4" />
+              <span>Product Pitch Walkthrough &bull; Investor Demo</span>
+            </div>
+            <h2 className="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">
+              What TruthLens Does &amp; How to Upload for Live Demos
+            </h2>
+            <p className="mt-1 text-sm text-slate-300">
+              High-impact 25-second investor pitch video, plus the 4-step real-time upload and multimodal forensic scanning pipeline.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2.5">
+            <a
+              href="/truthlens_demo_walkthrough.mp4"
+              download="truthlens_product_pitch_walkthrough.mp4"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3.5 py-2 text-xs font-semibold text-slate-200 hover:bg-white/10 transition cursor-pointer"
+            >
+              <Download className="h-4 w-4 text-sky-400" />
+              <span>Download MP4</span>
+            </a>
+            <button
+              onClick={() => onNavigate('deck')}
+              className="inline-flex items-center gap-2 rounded-xl border border-purple-500/30 bg-purple-500/10 px-3.5 py-2 text-xs font-semibold text-purple-300 hover:bg-purple-500/20 transition cursor-pointer"
+            >
+              <Presentation className="h-4 w-4" />
+              <span>View 5-Slide Deck</span>
+            </button>
+            <button
+              onClick={() => onNavigate('detect')}
+              className="inline-flex items-center gap-2 rounded-xl bg-[#10D4A2] px-4 py-2 text-xs font-bold text-[#050919] hover:bg-[#00e8ac] transition shadow-[0_0_15px_rgba(16,212,162,0.3)] cursor-pointer"
+            >
+              <ScanSearch className="h-4 w-4" />
+              <span>Launch Live Forensics</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-12 items-center">
+          {/* Left Column: Embedded 720p HD Video Player */}
+          <div className="lg:col-span-7 space-y-3">
+            <div className="group relative overflow-hidden rounded-2xl border border-white/20 bg-black shadow-[0_0_35px_rgba(56,189,248,0.2)]">
+              <video
+                src="/truthlens_demo_walkthrough.mp4"
+                poster="/deck/slide1.png"
+                controls
+                playsInline
+                className="w-full aspect-video object-cover"
+              />
+              <div className="absolute top-3 left-3 pointer-events-none inline-flex items-center gap-1.5 rounded-lg bg-black/80 px-2.5 py-1 text-[11px] font-semibold text-sky-300 border border-sky-500/30 backdrop-blur-md">
+                <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
+                <span>25s Full Product Walkthrough</span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between text-xs text-slate-400 px-1">
+              <span className="flex items-center gap-1 text-[#10D4A2]">
+                <CheckCircle2 className="h-3.5 w-3.5" /> 720p HD Native Render
+              </span>
+              <span>Audio/Video Forensics &bull; Virality Damper &bull; Section 63 BSA</span>
+            </div>
+          </div>
+
+          {/* Right Column: 4-Step "How to Upload & Scan" Guide for Pitch Demos */}
+          <div className="lg:col-span-5 space-y-3">
+            <div className="text-xs font-bold uppercase tracking-wider text-[#10D4A2] flex items-center gap-1.5">
+              <UploadCloud className="h-4 w-4" /> Live Pitch Demonstration: How to Upload
+            </div>
+
+            <div className="space-y-2.5">
+              <div
+                onClick={() => onNavigate('detect')}
+                className="group cursor-pointer rounded-xl border border-white/10 bg-[#050919]/80 p-3 hover:border-[#10D4A2]/50 hover:bg-[#08122f] transition"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#10D4A2]/15 text-xs font-bold text-[#10D4A2]">
+                    1
+                  </span>
+                  <div className="text-sm font-semibold text-white group-hover:text-[#10D4A2] transition">
+                    Drop Image, Paste Link or Audio
+                  </div>
+                </div>
+                <p className="mt-1 text-xs text-slate-400 pl-8.5">
+                  In <span className="text-white font-medium">Detect &amp; Heatmap</span>, drag &amp; drop any suspicious image, click 1-click test presets, or paste a live URL.
+                </p>
+              </div>
+
+              <div
+                onClick={() => onNavigate('detect')}
+                className="group cursor-pointer rounded-xl border border-white/10 bg-[#050919]/80 p-3 hover:border-sky-400/50 hover:bg-[#08122f] transition"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-sky-500/15 text-xs font-bold text-sky-400">
+                    2
+                  </span>
+                  <div className="text-sm font-semibold text-white group-hover:text-sky-300 transition">
+                    Zero-Cloud Error Level Analysis (ELA)
+                  </div>
+                </div>
+                <p className="mt-1 text-xs text-slate-400 pl-8.5">
+                  Computes 64-bit dHash, SHA-256, and pixel recompression anomalies in &lt;2.0s right inside the browser.
+                </p>
+              </div>
+
+              <div
+                onClick={() => onNavigate('dampen')}
+                className="group cursor-pointer rounded-xl border border-white/10 bg-[#050919]/80 p-3 hover:border-amber-400/50 hover:bg-[#08122f] transition"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-amber-500/15 text-xs font-bold text-amber-300">
+                    3
+                  </span>
+                  <div className="text-sm font-semibold text-white group-hover:text-amber-200 transition">
+                    15s Cognitive Cooling Virality Dampener
+                  </div>
+                </div>
+                <p className="mt-1 text-xs text-slate-400 pl-8.5">
+                  Simulates 24h harm curve, throttles forward streaks, and reduces R₀ reproduction rate below 1.0.
+                </p>
+              </div>
+
+              <div
+                onClick={() => onNavigate('heal')}
+                className="group cursor-pointer rounded-xl border border-white/10 bg-[#050919]/80 p-3 hover:border-rose-400/50 hover:bg-[#08122f] transition"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-rose-500/15 text-xs font-bold text-rose-300">
+                    4
+                  </span>
+                  <div className="text-sm font-semibold text-white group-hover:text-rose-200 transition">
+                    1-Click Cyber Cell &amp; BSA 63 Certificate
+                  </div>
+                </div>
+                <p className="mt-1 text-xs text-slate-400 pl-8.5">
+                  Generates court-ready Section 63 BSA legal certificate and autofills Cyber Cell (1930 / cybercrime.gov.in) complaint.
+                </p>
               </div>
             </div>
           </div>
@@ -701,6 +855,83 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           </div>
         </div>
       </section>
+
+      {/* Video Pitch Modal Player */}
+      {showVideoModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md">
+          <div className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-sky-500/40 bg-[#070e28] p-4 sm:p-6 shadow-[0_0_50px_rgba(56,189,248,0.3)]">
+            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/20 text-sky-400">
+                  <Play className="h-4 w-4" />
+                </span>
+                <div>
+                  <h3 className="font-display text-base sm:text-lg font-bold text-white">
+                    TruthLens 25-Second Funding Pitch Walkthrough
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Google AI Startup Buildathon 2026 &bull; India &bull; Hypothetica
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href="/truthlens_demo_walkthrough.mp4"
+                  download="truthlens_demo_walkthrough.mp4"
+                  className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
+                >
+                  <Download className="h-3.5 w-3.5 text-sky-400" />
+                  MP4
+                </a>
+                <button
+                  onClick={() => setShowVideoModal(false)}
+                  className="rounded-lg p-1.5 text-slate-400 hover:bg-white/10 hover:text-white transition cursor-pointer"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black aspect-video">
+              <video
+                src="/truthlens_demo_walkthrough.mp4"
+                poster="/deck/slide1.png"
+                controls
+                autoPlay
+                playsInline
+                className="h-full w-full object-contain"
+              />
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+              <div className="flex items-center gap-2">
+                <span className="inline-block h-2 w-2 rounded-full bg-[#10D4A2]" />
+                <span>Ready for Live Demos &amp; Pitch Screen Sharing</span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    setShowVideoModal(false);
+                    onNavigate('detect');
+                  }}
+                  className="rounded-lg bg-[#10D4A2] px-3 py-1.5 font-bold text-[#050919] hover:bg-[#00e8ac] transition cursor-pointer"
+                >
+                  Try Live Upload &amp; Scan
+                </button>
+                <button
+                  onClick={() => {
+                    setShowVideoModal(false);
+                    onNavigate('deck');
+                  }}
+                  className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white hover:bg-white/10 transition cursor-pointer"
+                >
+                  Inspect Pitch Deck
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

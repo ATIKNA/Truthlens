@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import {
+  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   Download,
   ExternalLink,
   Layers,
   Maximize2,
+  Play,
   Presentation,
+  ScanSearch,
   Sparkles,
+  Video,
 } from 'lucide-react';
 import type { Language, NavTab } from '../types/truthlens';
 
@@ -99,6 +103,7 @@ const SLIDES = [
 
 export const PitchDeckView: React.FC<PitchDeckViewProps> = ({ lang, onNavigate }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [viewMode, setViewMode] = useState<'slides' | 'video'>('slides');
   const slide = SLIDES[currentSlideIndex];
 
   return (
@@ -115,29 +120,143 @@ export const PitchDeckView: React.FC<PitchDeckViewProps> = ({ lang, onNavigate }
           </h2>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* View Mode Switcher + Downloads */}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="inline-flex rounded-xl border border-white/10 bg-[#050919] p-1">
+            <button
+              onClick={() => setViewMode('slides')}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${
+                viewMode === 'slides'
+                  ? 'bg-[#10D4A2] text-[#050919]'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <Presentation className="h-3.5 w-3.5" />
+              5-Slide Deck
+            </button>
+            <button
+              onClick={() => setViewMode('video')}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${
+                viewMode === 'video'
+                  ? 'bg-sky-400 text-[#050919]'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <Video className="h-3.5 w-3.5" />
+              25s Pitch Video
+            </button>
+          </div>
+
+          <a
+            href="/truthlens_demo_walkthrough.mp4"
+            download="truthlens_demo_walkthrough.mp4"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-sky-400/30 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-300 hover:bg-sky-500/20 transition cursor-pointer"
+          >
+            <Download className="h-3.5 w-3.5 text-sky-400" />
+            Video MP4
+          </a>
           <a
             href="/deck/truthlens_pitch_deck.pdf"
             download="TruthLens_Pitch_Deck_2026.pdf"
-            className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-semibold text-slate-200 hover:bg-white/10 transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:bg-white/10 transition cursor-pointer"
           >
-            <Download className="h-4 w-4 text-[#10D4A2]" />
-            Download PDF
+            <Download className="h-3.5 w-3.5 text-[#10D4A2]" />
+            Deck PDF
           </a>
           <a
             href="/deck/truthlens_pitch_deck.pdf"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#10D4A2] px-3.5 py-2 text-xs font-bold text-[#050919] hover:bg-[#00e8ac] transition"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#10D4A2] px-3.5 py-1.5 text-xs font-bold text-[#050919] hover:bg-[#00e8ac] transition"
           >
-            <ExternalLink className="h-4 w-4" />
-            Open in Tab
+            <ExternalLink className="h-3.5 w-3.5" />
+            Open
           </a>
         </div>
       </div>
 
-      {/* Main Slide Presentation Stage */}
-      <div className="rounded-2xl border border-white/10 bg-[#0b1229]/90 p-4 sm:p-6 shadow-2xl space-y-4">
+      {viewMode === 'video' ? (
+        /* Video Pitch Walkthrough Stage */
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-sky-500/30 bg-[#070e28] p-4 sm:p-6 shadow-2xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-white/10 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-500/20 text-sky-400">
+                  <Play className="h-4 w-4" />
+                </span>
+                <div>
+                  <h3 className="font-display text-base font-bold text-white">
+                    25-Second Product Demo &amp; Investor Walkthrough Video
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    High-definition 720p 30fps MP4 narrative &bull; Problem &bull; Systems Architecture &bull; Traction
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="rounded-full bg-sky-400/15 border border-sky-400/30 px-3 py-0.5 text-xs font-mono font-semibold text-sky-300">
+                  0:25 DURATION
+                </span>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-black aspect-video max-w-4xl mx-auto shadow-2xl">
+              <video
+                src="/truthlens_demo_walkthrough.mp4"
+                poster="/deck/slide1.png"
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3 pt-2">
+              <div className="rounded-xl border border-white/10 bg-[#050919] p-3">
+                <div className="text-xs font-bold uppercase tracking-wider text-rose-400">01. The Problem</div>
+                <div className="mt-1 text-sm font-semibold text-white">Damage in 2h vs Takedown in 2d</div>
+                <p className="mt-0.5 text-xs text-slate-400">
+                  3 reinforcing loops exploit viral WhatsApp forwarding and cause acute victim trauma.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-[#050919] p-3">
+                <div className="text-xs font-bold uppercase tracking-wider text-sky-400">02. The Architecture</div>
+                <div className="mt-1 text-sm font-semibold text-white">Zero-Cloud ELA + Gemini</div>
+                <p className="mt-0.5 text-xs text-slate-400">
+                  Error Level Analysis (&lt;2s), 11.2 kHz voice FFT, Qdrant vault, and 15s cooling friction.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-[#050919] p-3">
+                <div className="text-xs font-bold uppercase tracking-wider text-[#10D4A2]">03. Full Compliance</div>
+                <div className="mt-1 text-sm font-semibold text-white">BSA 63 + DPDP asia-south1</div>
+                <p className="mt-0.5 text-xs text-slate-400">
+                  Court-admissible certificate, 1-click Cyber Cell reporting, and local data sovereignty.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
+              <span className="text-xs text-slate-400 flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 text-[#10D4A2]" />
+                Self-contained native video for investor presentations, demo days, and pitch decks.
+              </span>
+              <button
+                onClick={() => onNavigate('detect')}
+                className="inline-flex items-center gap-2 rounded-xl bg-[#10D4A2] px-4 py-2 text-xs font-bold text-[#050919] hover:bg-[#00e8ac] transition cursor-pointer"
+              >
+                <ScanSearch className="h-4 w-4" />
+                Launch Live Forensics Lab
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* Main Slide Presentation Stage */}
+          <div className="rounded-2xl border border-white/10 bg-[#0b1229]/90 p-4 sm:p-6 shadow-2xl space-y-4">
         {/* Slide navigation controls */}
         <div className="flex items-center justify-between border-b border-white/10 pb-3">
           <div className="flex items-center gap-2">
@@ -253,6 +372,8 @@ export const PitchDeckView: React.FC<PitchDeckViewProps> = ({ lang, onNavigate }
           })}
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 };
