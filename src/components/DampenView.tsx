@@ -323,7 +323,7 @@ export const DampenView: React.FC<DampenViewProps> = ({ client, sharedMedia }) =
                 Donella Meadows Stock-and-Flow 24h Virality Simulator
               </h3>
               <p className="text-xs text-slate-400">
-                &ldquo;What if I share this?&rdquo; — Interactive{' '}
+                &ldquo;What if I share this?&rdquo; — 24h harm if 100 people share •{' '}
                 <code className="text-[#10D4A2]">POST /api/simulate</code>
               </p>
             </div>

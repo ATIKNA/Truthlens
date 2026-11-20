@@ -93,6 +93,11 @@ const CAUSAL_NODES = [
   },
 ];
 
+// Deck slide 3: "AI picks the ONE intervention with maximum harm reduction."
+// For a viral WhatsApp forward, breaking amplification (L2) yields the largest reduction
+// in the 24h simulator, so it is the default recommendation.
+const AI_RECOMMENDED_NODE = 'sharers';
+
 const VERTICAL_SUMMARY: {
   id: DomainId;
   title: string;
@@ -228,11 +233,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <div className="mt-1 text-[11px] text-slate-400">Zero cloud cost forensics</div>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-              <div className="text-xs font-medium text-slate-400">Cooling Friction</div>
-              <div className="mt-1 font-display text-2xl font-bold text-amber-400 tabular-nums">
-                -73.6%
+              <div className="text-xs font-medium text-slate-400">India Ground Zero</div>
+              <div className="mt-1 font-display text-2xl font-bold text-amber-400">
+                WhatsApp
               </div>
-              <div className="mt-1 text-[11px] text-slate-400">Impulsive forwards halted</div>
+              <div className="mt-1 text-[11px] text-slate-400">Women &amp; creators most targeted</div>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
               <div className="text-xs font-medium text-slate-400">Deployment Ready</div>
@@ -328,6 +333,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     {node.leverage.split(' — ')[0]}
                   </span>
                 </div>
+                {node.id === AI_RECOMMENDED_NODE && (
+                  <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-amber-400/15 px-2 py-0.5 text-[10px] font-bold text-amber-300">
+                    <Sparkles className="h-3 w-3" />
+                    AI PICK • MAX HARM REDUCTION
+                  </span>
+                )}
                 <div className="mt-2 font-display text-base font-bold text-white">
                   {node.label}
                 </div>

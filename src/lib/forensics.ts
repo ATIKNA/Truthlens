@@ -580,8 +580,11 @@ export function runLocalViralitySimulation(params: {
   p_forward: number;
   friction_enabled: boolean;
   cooling_delay_seconds: number;
+  seed_sharers?: number;
 }): SimulationResponse {
   const { hours, p_forward, friction_enabled, cooling_delay_seconds } = params;
+  // Deck slide 4: "What if I share this? shows 24h harm if 100 people share"
+  const seed = Math.max(1, params.seed_sharers ?? 100);
   const contactsPerSharer = 5.4; // Typical WhatsApp group/contact fan-out
   const r0Unmitigated = Number((p_forward * contactsPerSharer).toFixed(2));
 
@@ -593,10 +596,10 @@ export function runLocalViralitySimulation(params: {
   const r0Dampened = Number((effectiveP * contactsPerSharer).toFixed(2));
 
   const populationCap = 85000;
-  let reachU = 12;
-  let activeU = 12;
-  let reachD = 12;
-  let activeD = 12;
+  let reachU = seed;
+  let activeU = seed;
+  let reachD = seed;
+  let activeD = seed;
 
   const curve: SimulationPoint[] = [];
   for (let h = 0; h <= hours; h++) {

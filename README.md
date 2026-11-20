@@ -14,7 +14,9 @@ Deepfakes do not fail because of a missing classifier — they ride **three rein
 2. **Mental Health Loop:** Victim Sees Fake → Anxiety / Shame → Withdrawal → Deeper Harm
 3. **Trust Collapse Loop:** No One Trusts Media → Real Victims Ignored → Society Divides
 
-Guided by **Donella Meadows' Leverage Points**, TruthLens intervenes across the entire causal graph (`Creator → Platform → Sharers → Victim`) rather than playing detection whack-a-mole:
+**India is ground zero:** WhatsApp forwards spread fakes fastest, and women and creators are the most targeted.
+
+Guided by **Donella Meadows' Leverage Points** ("change the structure, not the symptom"), TruthLens maps every fake as a causal graph (`Creator → Platform → Sharers → Victim`), and the AI picks the **one intervention with maximum harm reduction**, rather than playing detection whack-a-mole:
 
 | Leverage Point | Stage | Mechanism |
 | --- | --- | --- |
@@ -228,7 +230,22 @@ Download the APK on an Android phone that is connected to Tailscale: http://100.
 
 ---
 
+## Roadmap (from the pitch deck)
+
+- [x] Detect: upload an image **or paste a link** → Real / AI / Manipulated score in about 2 seconds, with a heatmap
+- [x] Protect: Origin Vault invisible fingerprint ("My Real Vault")
+- [x] Heal: AI companion, evidence kit, takedown draft, counselor helplines
+- [x] Simulate: "What if I share this?", showing 24h harm if 100 people share
+- [x] **Pitch Deck Interactive Viewer**: All 5 slides embedded in-app with high-res PNG previews + direct PDF download
+- [ ] **Chrome extension** (not started)
+- [ ] **Hindi + 8 Indian languages** (EN + HI done; the other 8 need backend support, see `BACKEND_API_REQUESTS.md` B9)
+- [ ] Real Gemini Live voice coach (the UI uses scripted replies until `POST /api/coach/chat` ships)
+
+**Methods:** Causal Inference (Erica) • Systems Dynamics (Schemo) • Gemini
+
+---
+
 ## Team
 
-- **Gaurav Singh** (Jaipur)
+- **Gaurav Singh** (Jaipur) — acad.grv97@gmail.com
 - **Ankita Sinha** (Bengaluru - Remote)

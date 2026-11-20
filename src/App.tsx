@@ -27,13 +27,16 @@ import { VaultView } from './components/VaultView';
 import { DampenView } from './components/DampenView';
 import { HealLegalView } from './components/HealLegalView';
 import { SolutionsView } from './components/SolutionsView';
+import { PitchDeckView } from './components/PitchDeckView';
 import { SystemApiView } from './components/SystemApiView';
+import { Presentation } from 'lucide-react';
 
 const NAV_ITEMS: {
   id: NavTab;
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
   { id: 'overview', icon: LayoutDashboard },
+  { id: 'deck', icon: Presentation },
   { id: 'detect', icon: ScanSearch },
   { id: 'vault', icon: Fingerprint },
   { id: 'dampen', icon: Flame },
@@ -222,6 +225,10 @@ export default function App() {
             />
           )}
 
+          {activeTab === 'deck' && (
+            <PitchDeckView lang={lang} onNavigate={setActiveTab} />
+          )}
+
           {activeTab === 'detect' && (
             <ForensicsView
               client={client}
@@ -275,8 +282,8 @@ export default function App() {
         className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-[#060b1f]/95 backdrop-blur-lg lg:hidden"
         aria-label="Mobile navigation"
       >
-        <div className="grid grid-cols-6 gap-0.5 px-1 py-1.5">
-          {NAV_ITEMS.slice(0, 6).map((item) => {
+        <div className="grid grid-cols-7 gap-0.5 px-1 py-1.5">
+          {NAV_ITEMS.slice(0, 7).map((item) => {
             const Icon = item.icon;
             const active = activeTab === item.id;
             return (

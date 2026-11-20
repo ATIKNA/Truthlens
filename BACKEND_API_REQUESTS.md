@@ -105,6 +105,18 @@ These are screens in the app that currently use **frontend-only simulated logic*
 **Request:** `{ "preset": "kyc-faceswap | election-deepfake | damage-claim | authentic-portrait" }`
 **Response:** `{ "image_base64": "", "is_synthetic": true, "synthid_embedded": true }`
 
+### B8. `POST /api/detect/url` — analyze by link (P1)
+**Used by:** the Edge Forensics "Or paste an image link" box (deck slide 4: *"Upload image/link"*). Browsers can't download most third-party images because of CORS, so the server needs to fetch them.
+**Request:** `{ "url": "https://..." }`
+**Response:** same shape as `POST /api/detect`, plus `source_url` and `content_type`.
+**Note:** block private IPs and `file://` URLs (SSRF protection), and cap the download size.
+
+### B9. Multi-language support (P2)
+The deck promises **Hindi + 8 Indian languages**. The frontend has EN and HI today. Please accept `language` (ISO code: `en`, `hi`, `bn`, `ta`, `te`, `mr`, `gu`, `kn`, `ml`) on `/api/coach/chat`, `/api/debunk/sticker-card` (returns `counter_narrative` in that language) and `/api/amplify/pre-share-check` (returns `warning_headline` and `warning_body` in that language).
+
+### B10. `POST /api/simulate` — add `seed_sharers` (P2)
+The deck says the simulator *"shows 24h harm if 100 people share"*. Please accept an optional `seed_sharers` (default `100`) in the request body. The frontend now sends it.
+
 ---
 
 ## Summary checklist
@@ -121,5 +133,8 @@ These are screens in the app that currently use **frontend-only simulated logic*
 - [ ] B5 `POST /api/wellbeing/exposure-check`
 - [ ] B6 `POST /api/amplify/coordination-score`
 - [ ] B7 `POST /api/demo/nano-banana`
+- [ ] B8 `POST /api/detect/url`
+- [ ] B9 `language` param (Hindi + 8 Indian languages)
+- [ ] B10 `seed_sharers` on `/api/simulate`
 
 Once any of these ship, ping me with the Swagger link and I'll wire them into `src/lib/api.ts`. Every call already falls back to the Edge Demo engine, so nothing in the UI will break while these are in progress.

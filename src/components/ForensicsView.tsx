@@ -59,6 +59,8 @@ export const ForensicsView: React.FC<ForensicsViewProps> = ({
   const [detectResult, setDetectResult] = useState<DetectResult | null>(null);
   const [watermarkResult, setWatermarkResult] = useState<WatermarkResult | null>(null);
   const [elaSplit, setElaSplit] = useState(50);
+  const [linkInput, setLinkInput] = useState('');
+  const [linkError, setLinkError] = useState<string | null>(null);
 
   // Audio state
   const [audioLoading, setAudioLoading] = useState(false);
@@ -95,6 +97,31 @@ export const ForensicsView: React.FC<ForensicsViewProps> = ({
     setSubMode('image');
     const file = await createDemoImageFile(presetId);
     await analyzeImageFile(file);
+  };
+
+  // Deck slide 4: "DETECT: Upload image/link"
+  const analyzeLink = async () => {
+    const url = linkInput.trim();
+    setLinkError(null);
+    if (!/^https?:\/\//i.test(url)) {
+      setLinkError('Enter a full http(s) image URL.');
+      return;
+    }
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const blob = await res.blob();
+      if (!blob.type.startsWith('image/')) {
+        setLinkError('That link is not a direct image. Paste a direct image URL (ending in .jpg/.png/.webp).');
+        return;
+      }
+      const name = url.split('/').pop()?.split('?')[0] || 'linked_image';
+      await analyzeImageFile(new File([blob], name, { type: blob.type }));
+    } catch {
+      setLinkError(
+        'The site blocked direct download (CORS). Save the image and upload it instead, or use Live mode once the backend adds POST /api/detect/url.'
+      );
+    }
   };
 
   useEffect(() => {
@@ -235,6 +262,32 @@ export const ForensicsView: React.FC<ForensicsViewProps> = ({
                 <ShieldCheck className="h-3.5 w-3.5 text-[#10D4A2]" />
                 Gemma On-Device Edge Mode — Photo stays private
               </div>
+            </div>
+
+            {/* Analyze by link */}
+            <div className="rounded-2xl border border-white/10 bg-[#0b1229]/90 p-4 space-y-2">
+              <label htmlFor="tl-link" className="text-xs font-bold uppercase tracking-wider text-sky-300">
+                Or paste an image link
+              </label>
+              <div className="flex gap-2">
+                <input
+                  id="tl-link"
+                  type="url"
+                  value={linkInput}
+                  onChange={(e) => setLinkInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && analyzeLink()}
+                  placeholder="https://example.com/viral-forward.jpg"
+                  className="flex-1 rounded-xl border border-white/10 bg-[#050919] px-3 py-2 text-xs text-white"
+                />
+                <button
+                  onClick={analyzeLink}
+                  disabled={loading || !linkInput.trim()}
+                  className="rounded-xl bg-sky-500/20 px-3 py-2 text-xs font-semibold text-sky-200 hover:bg-sky-500/30 cursor-pointer disabled:opacity-50"
+                >
+                  Scan Link
+                </button>
+              </div>
+              {linkError && <p className="text-[11px] text-amber-300">{linkError}</p>}
             </div>
 
             {/* Nano Banana Safe Demo Generator */}

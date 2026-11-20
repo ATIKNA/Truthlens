@@ -8,6 +8,7 @@ export const copy = {
     badge: 'BUILDATHON 2026 • INDIA • HYPOTHETICA',
     nav: {
       overview: 'Systems Map',
+      deck: 'Pitch Deck',
       detect: 'Edge Forensics',
       vault: 'Origin Vault',
       dampen: 'Virality & Wellbeing',
@@ -17,6 +18,7 @@ export const copy = {
     },
     navSub: {
       overview: 'Causal Loops & Architecture',
+      deck: 'Buildathon 2026 Slides',
       detect: 'L0 • ELA, SynthID, Audio FFT',
       vault: 'L1 • Qdrant Perceptual Hash',
       dampen: 'L2 • Cooling, Outrage & Bots',
@@ -51,6 +53,7 @@ export const copy = {
     badge: 'बिल्डैथॉन 2026 • भारत • हाइपोथेटिका',
     nav: {
       overview: 'सिस्टम्स मैप',
+      deck: 'पिच डेक',
       detect: 'एज फ़ॉरेंसिक्स',
       vault: 'ओरिजिन वॉल्ट',
       dampen: 'वायरलिटी व वेलबीइंग',
@@ -60,6 +63,7 @@ export const copy = {
     },
     navSub: {
       overview: 'कॉज़ल लूप्स व आर्किटेक्चर',
+      deck: 'बिल्डैथॉन 2026 स्लाइड्स',
       detect: 'L0 • ELA, SynthID, ऑडियो FFT',
       vault: 'L1 • Qdrant परसेप्चुअल हैश',
       dampen: 'L2 • कूलिंग, आउटरेज व बॉट्स',

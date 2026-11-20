@@ -462,12 +462,15 @@ export class TruthLensClient {
         const res = await fetchWithTimeout(`${this.apiBase}/api/amplify/telemetry`, {}, 3000);
         if (res.ok) {
           const data = await res.json();
+          const total = Number(data.total_interventions ?? localTelemetry.total_interventions);
+          const abandoned = Number(data.abandoned_count ?? localTelemetry.abandoned_count);
+          const computedRate = total > 0 ? Number(((abandoned / total) * 100).toFixed(1)) : 0;
           return {
-            total_interventions: Number(data.total_interventions ?? localTelemetry.total_interventions),
-            abandoned_count: Number(data.abandoned_count ?? localTelemetry.abandoned_count),
+            total_interventions: total,
+            abandoned_count: abandoned,
             shared_anyway_count: Number(data.shared_anyway_count ?? localTelemetry.shared_anyway_count),
-            abandonment_rate: Number(data.abandonment_rate ?? 73.6),
-            dampening_factor: Number(data.dampening_factor ?? 0.74),
+            abandonment_rate: Number(data.abandonment_rate ?? computedRate),
+            dampening_factor: Number(data.dampening_factor ?? Number((computedRate / 100).toFixed(2))),
             avg_pause_seconds: Number(data.avg_pause_seconds ?? 14.5),
             source: 'live',
           };
@@ -500,7 +503,9 @@ export class TruthLensClient {
     p_forward: number;
     friction_enabled: boolean;
     cooling_delay_seconds: number;
+    seed_sharers?: number;
   }): Promise<SimulationResponse> {
+    params = { seed_sharers: 100, ...params };
     if (this.shouldTryLive) {
       try {
         const res = await fetchWithTimeout(`${this.apiBase}/api/simulate`, {
