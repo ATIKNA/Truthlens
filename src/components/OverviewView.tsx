@@ -563,75 +563,106 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       </section>
 
       {/* Powered by Google AI + Live Backend Health */}
-      <section className="grid gap-5 lg:grid-cols-12">
-        <div className="glass-panel rounded-3xl p-6 lg:col-span-7 space-y-4">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-400">
-            <Brain className="h-4 w-4" />
-            Powered by Google AI • DPDP asia-south1
+      <section className="grid gap-6 lg:grid-cols-12">
+        {/* Google AI Stack Card */}
+        <div className="glass-panel overflow-hidden rounded-3xl lg:col-span-7 flex flex-col justify-between border border-white/10 shadow-2xl">
+          {/* Visual Constellation Header Graphic */}
+          <div className="relative aspect-[16/6] w-full overflow-hidden bg-black/50 border-b border-white/10">
+            <img
+              src="/reactions/google_ai_constellation.png"
+              alt="Google AI Constellation Architecture: Gemini Multimodal, Nano Banana, Gemini Live, Gemma Edge"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b1229] via-transparent to-transparent opacity-80" />
+            <div className="absolute top-3 left-4 inline-flex items-center gap-2 rounded-full bg-black/70 backdrop-blur-md px-3 py-1 text-xs font-bold uppercase tracking-wider text-sky-400 border border-sky-400/30">
+              <Brain className="h-4 w-4" />
+              Powered by Google AI • asia-south1 DPDP
+            </div>
           </div>
-          <h3 className="font-display text-xl font-bold text-white">
-            Gemini Detects. Our Systems Engine Understands.
-          </h3>
-          <div className="grid gap-3 sm:grid-cols-2 pt-1">
-            {[
-              {
-                name: 'Gemini API Multimodal',
-                detail: 'Artifacts, lighting azimuth, face-blend seams & metadata mismatch.',
-                icon: Sparkles,
-                color: 'text-amber-400',
-              },
-              {
-                name: 'Nano Banana',
-                detail: 'Creates safe synthetic demo fakes to train users & simulate spread.',
-                icon: ShieldAlert,
-                color: 'text-rose-400',
-              },
-              {
-                name: 'Gemini Live Voice Coach',
-                detail: 'Hindi & English crisis companion — talks victims out of panic.',
-                icon: Radio,
-                color: 'text-sky-400',
-              },
-              {
-                name: 'Gemma On-Device + Cloud Run',
-                detail: 'Private offline edge checks + Vertex AI, Firestore & BigQuery (asia-south1).',
-                icon: Cpu,
-                color: 'text-[#10D4A2]',
-              },
-            ].map((stack) => {
-              const Icon = stack.icon;
-              return (
-                <div
-                  key={stack.name}
-                  className="rounded-2xl border border-white/10 bg-[#050919]/70 p-4 transition hover:border-white/20"
-                >
-                  <div className="flex items-center gap-2.5 text-sm font-bold text-white">
-                    <Icon className={`h-4.5 w-4.5 ${stack.color}`} />
-                    {stack.name}
+
+          <div className="p-6 space-y-4">
+            <h3 className="font-display text-xl font-bold text-white">
+              Gemini Detects. Our Systems Engine Understands.
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                {
+                  name: 'Gemini API Multimodal',
+                  detail: 'Artifacts, lighting azimuth, face-blend seams & metadata mismatch.',
+                  icon: Sparkles,
+                  color: 'text-amber-400',
+                  badge: 'Cloud Vertex AI',
+                },
+                {
+                  name: 'Nano Banana',
+                  detail: 'Creates safe synthetic demo fakes to train users & simulate spread.',
+                  icon: ShieldAlert,
+                  color: 'text-rose-400',
+                  badge: 'Synthetic Engine',
+                },
+                {
+                  name: 'Gemini Live Voice Coach',
+                  detail: 'Hindi & English crisis companion — talks victims out of panic.',
+                  icon: Radio,
+                  color: 'text-sky-400',
+                  badge: 'Voice Stream',
+                },
+                {
+                  name: 'Gemma On-Device + Cloud Run',
+                  detail: 'Private offline edge checks + Vertex AI, Firestore & BigQuery (asia-south1).',
+                  icon: Cpu,
+                  color: 'text-[#10D4A2]',
+                  badge: 'On-Device Edge',
+                },
+              ].map((stack) => {
+                const Icon = stack.icon;
+                return (
+                  <div
+                    key={stack.name}
+                    className="rounded-2xl border border-white/10 bg-[#050919]/70 p-4 transition hover:border-[#10D4A2]/30"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm font-bold text-white">
+                        <Icon className={`h-4 w-4 ${stack.color}`} />
+                        {stack.name.split(' ')[0]}
+                      </div>
+                      <span className="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
+                        {stack.badge}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-xs leading-relaxed text-slate-400">{stack.detail}</p>
                   </div>
-                  <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{stack.detail}</p>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        <div className="glass-panel rounded-3xl p-6 lg:col-span-5 flex flex-col justify-between space-y-4">
-          <div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#10D4A2]">
-                <Activity className="h-4 w-4 text-[#10D4A2]" />
-                Live Edge Telemetry (/health)
-              </div>
-              <button
-                onClick={onRefreshHealth}
-                className="inline-flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-300 hover:bg-white/10 cursor-pointer"
-              >
-                <RefreshCw className="h-3 w-3" />
-                Refresh
-              </button>
+        {/* Telemetry Hub Card */}
+        <div className="glass-panel overflow-hidden rounded-3xl lg:col-span-5 flex flex-col justify-between border border-white/10 shadow-2xl">
+          {/* Visual Server Rack Graphic */}
+          <div className="relative aspect-[16/7] w-full overflow-hidden bg-black/50 border-b border-white/10">
+            <img
+              src="/reactions/server_telemetry_hub.png"
+              alt="TruthLens Live Telemetry Rack and Edge Service Blades"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b1229] via-transparent to-transparent opacity-80" />
+            <div className="absolute top-3 left-4 inline-flex items-center gap-2 rounded-full bg-black/70 backdrop-blur-md px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#10D4A2] border border-[#10D4A2]/30">
+              <Activity className="h-4 w-4" />
+              Live Edge Telemetry (/health)
             </div>
-            <div className="mt-4 space-y-2 text-xs">
+            <button
+              onClick={onRefreshHealth}
+              className="absolute top-3 right-4 inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-black/75 backdrop-blur-md px-3 py-1 text-xs text-slate-300 hover:text-white transition cursor-pointer"
+            >
+              <RefreshCw className="h-3 w-3" />
+              Refresh
+            </button>
+          </div>
+
+          <div className="p-6 flex flex-col justify-between flex-1 space-y-4">
+            <div className="space-y-2 text-xs">
               {[
                 { label: 'Redis Cache & Cooling Queue', val: health?.services.redis ?? 'ready' },
                 { label: 'Postgres Case & Telemetry DB', val: health?.services.postgres ?? 'ready' },
@@ -641,7 +672,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               ].map((svc) => (
                 <div
                   key={svc.label}
-                  className="flex items-center justify-between rounded-xl bg-[#050919]/80 px-3.5 py-2.5 border border-white/5"
+                  className="flex items-center justify-between rounded-xl bg-[#050919]/80 px-3.5 py-2 border border-white/5"
                 >
                   <span className="text-slate-300 font-medium">{svc.label}</span>
                   <span className="inline-flex items-center gap-2 font-mono text-[11px] text-[#10D4A2]">
@@ -651,22 +682,22 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 </div>
               ))}
             </div>
-          </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-4">
-            <div className="text-[11px] text-slate-400">
-              Team: <span className="text-slate-200 font-semibold">Gaurav Singh &amp; Ankita Sinha</span>
-              {apiInfo && <span className="ml-2 font-mono text-[#10D4A2]">v{apiInfo.version}</span>}
+            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-4">
+              <div className="text-[11px] text-slate-400">
+                Team: <span className="text-slate-200 font-semibold">Gaurav Singh &amp; Ankita Sinha</span>
+                {apiInfo && <span className="ml-2 font-mono text-[#10D4A2]">v{apiInfo.version}</span>}
+              </div>
+              <a
+                href={`${baseUrl}/download/truthlens.apk`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-[#10D4A2]/40 bg-[#10D4A2]/15 px-3 py-1.5 text-xs font-bold text-[#10D4A2] hover:bg-[#10D4A2]/25"
+              >
+                <Download className="h-3.5 w-3.5" />
+                {tr.downloadApk}
+              </a>
             </div>
-            <a
-              href={`${baseUrl}/download/truthlens.apk`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-[#10D4A2]/40 bg-[#10D4A2]/15 px-3 py-1.5 text-xs font-bold text-[#10D4A2] hover:bg-[#10D4A2]/25"
-            >
-              <Download className="h-3.5 w-3.5" />
-              {tr.downloadApk}
-            </a>
           </div>
         </div>
       </section>
