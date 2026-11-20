@@ -123,6 +123,7 @@ const VERTICAL_SUMMARY: {
   icon: React.ComponentType<{ className?: string }>;
   accent: string;
   badgeBg: string;
+  image: string;
 }[] = [
   {
     id: 'fintech',
@@ -132,6 +133,7 @@ const VERTICAL_SUMMARY: {
     icon: Landmark,
     accent: 'text-emerald-400 group-hover:shadow-[0_0_20px_rgba(16,212,162,0.3)]',
     badgeBg: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20',
+    image: '/reactions/domain1_fintech.png',
   },
   {
     id: 'social',
@@ -141,6 +143,7 @@ const VERTICAL_SUMMARY: {
     icon: Users,
     accent: 'text-amber-400 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]',
     badgeBg: 'bg-amber-500/10 text-amber-300 border-amber-500/20',
+    image: '/reactions/domain2_social.png',
   },
   {
     id: 'enterprise',
@@ -150,6 +153,7 @@ const VERTICAL_SUMMARY: {
     icon: Building2,
     accent: 'text-sky-400 group-hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]',
     badgeBg: 'bg-sky-500/10 text-sky-300 border-sky-500/20',
+    image: '/reactions/domain3_enterprise.png',
   },
   {
     id: 'journalism',
@@ -159,6 +163,7 @@ const VERTICAL_SUMMARY: {
     icon: Newspaper,
     accent: 'text-purple-400 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]',
     badgeBg: 'bg-purple-500/10 text-purple-300 border-purple-500/20',
+    image: '/reactions/domain4_journalism.png',
   },
   {
     id: 'commerce',
@@ -168,6 +173,7 @@ const VERTICAL_SUMMARY: {
     icon: ShoppingBag,
     accent: 'text-cyan-400 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]',
     badgeBg: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20',
+    image: '/reactions/domain5_commerce.png',
   },
   {
     id: 'legal',
@@ -177,6 +183,7 @@ const VERTICAL_SUMMARY: {
     icon: Gavel,
     accent: 'text-rose-400 group-hover:shadow-[0_0_20px_rgba(244,63,94,0.3)]',
     badgeBg: 'bg-rose-500/10 text-rose-300 border-rose-500/20',
+    image: '/reactions/domain6_legal.png',
   },
 ];
 
@@ -519,25 +526,35 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <button
                 key={item.id}
                 onClick={() => onOpenDomain(item.id)}
-                className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-[#0b1229]/80 p-5.5 text-left transition hover:border-[#10D4A2]/50 hover:bg-[#111b3a]/90 hover:scale-[1.02] duration-200 cursor-pointer shadow-lg"
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#0b1229]/80 text-left transition hover:border-[#10D4A2]/50 hover:bg-[#111b3a]/90 hover:scale-[1.02] duration-200 cursor-pointer shadow-lg"
               >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 transition ${item.accent}`}>
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold ${item.badgeBg}`}>
-                      {item.tag}
-                    </span>
+                {/* Visual Domain Thumbnail */}
+                <div className="relative aspect-[16/8] w-full overflow-hidden bg-black/40 border-b border-white/10">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b1229] via-transparent to-transparent opacity-80" />
+                  <div className={`absolute top-3 left-3 flex h-9 w-9 items-center justify-center rounded-xl bg-black/75 backdrop-blur-md border border-white/15 ${item.accent}`}>
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-3.5 font-display text-lg font-bold text-white group-hover:text-[#10D4A2] transition">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-slate-400">{item.desc}</p>
+                  <span className={`absolute top-3 right-3 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold backdrop-blur-md bg-black/60 ${item.badgeBg}`}>
+                    {item.tag}
+                  </span>
                 </div>
-                <div className="mt-4 pt-3 border-t border-white/5 inline-flex items-center gap-2 text-xs font-bold text-[#10D4A2]">
-                  Run Live Domain Simulator
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="font-display text-lg font-bold text-white group-hover:text-[#10D4A2] transition">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{item.desc}</p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-white/5 inline-flex items-center gap-2 text-xs font-bold text-[#10D4A2]">
+                    Run Live Domain Simulator
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
               </button>
             );
