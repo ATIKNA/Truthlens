@@ -197,7 +197,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         <div className="pointer-events-none absolute -bottom-24 left-1/4 h-80 w-80 rounded-full bg-sky-500/15 blur-3xl" />
 
         <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-2xl space-y-5">
+          <div className="max-w-xl space-y-5">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#10D4A2]/40 bg-[#10D4A2]/10 px-4 py-1.5 text-xs font-bold tracking-wider text-[#10D4A2] shadow-[0_0_15px_rgba(16,212,162,0.2)]">
               <Sparkles className="h-4 w-4 animate-spin text-[#10D4A2]" style={{ animationDuration: '6s' }} />
               {tr.badge}
@@ -216,7 +216,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               )}
             </h1>
 
-            <p className="text-base leading-relaxed text-slate-300 sm:text-xl font-normal max-w-xl">
+            <p className="text-base leading-relaxed text-slate-300 sm:text-xl font-normal max-w-lg">
               {tr.subtitle}
             </p>
 
@@ -245,50 +245,46 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </div>
           </div>
 
-          {/* Key Metric Live Proof Strip */}
-          <div className="grid grid-cols-2 gap-3.5 lg:w-88">
-            <div className="glass-panel rounded-2xl p-4.5 transition hover:scale-105 duration-200">
-              <div className="flex items-center justify-between text-xs font-semibold text-rose-300">
-                <span>Damage Asymmetry</span>
-                <AlertTriangle className="h-4 w-4 text-rose-400" />
+          {/* Interactive Hero Visual Showcase: Forensic Laser Scanner & Live Stat Badges */}
+          <div className="relative w-full lg:w-[480px] flex flex-col items-center">
+            <div className="group relative w-full aspect-[16/10] overflow-hidden rounded-2xl border border-white/20 bg-[#040816] shadow-2xl transition hover:scale-[1.02] duration-300">
+              <img
+                src="/reactions/hero_forensic_scanner.png"
+                alt="TruthLens Real-time Multimodal Forensic Laser Split Scanner"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#040816] via-transparent to-transparent opacity-60" />
+
+              {/* Floating Live Detection Pill Overlay */}
+              <div className="absolute top-3.5 left-3.5 inline-flex items-center gap-2 rounded-xl bg-black/75 px-3 py-1.5 text-xs backdrop-blur-md border border-emerald-500/30 text-emerald-300 shadow-lg">
+                <span className="h-2 w-2 rounded-full bg-[#10D4A2] animate-pulse" />
+                <span>Authentic Provenance (C2PA)</span>
               </div>
-              <div className="mt-2 font-display text-3xl font-extrabold text-rose-400 tabular-nums text-glow-rose">
-                2h <span className="text-sm font-normal text-slate-400">vs</span> 2d
+
+              <div className="absolute bottom-3.5 right-3.5 inline-flex items-center gap-2 rounded-xl bg-black/75 px-3 py-1.5 text-xs backdrop-blur-md border border-rose-500/40 text-rose-300 shadow-lg">
+                <ShieldAlert className="h-3.5 w-3.5 text-rose-400" />
+                <span>ELA Splice Anomaly Flagged</span>
               </div>
-              <div className="mt-1 text-[11px] text-slate-400">Viral spike vs takedown speed</div>
             </div>
 
-            <div className="glass-panel-glow rounded-2xl p-4.5 transition hover:scale-105 duration-200">
-              <div className="flex items-center justify-between text-xs font-semibold text-[#10D4A2]">
-                <span>Edge Latency</span>
-                <Zap className="h-4 w-4 text-[#10D4A2]" />
+            {/* Quick KPI Strip Beneath Hero Graphic */}
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full">
+              <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
+                <div className="text-[10px] text-slate-400 uppercase font-semibold">Damage Speed</div>
+                <div className="font-display text-base font-bold text-rose-400">2h viral</div>
               </div>
-              <div className="mt-2 font-display text-3xl font-extrabold text-[#10D4A2] tabular-nums text-glow-emerald">
-                &lt;2.0s
+              <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
+                <div className="text-[10px] text-slate-400 uppercase font-semibold">Edge Scan</div>
+                <div className="font-display text-base font-bold text-[#10D4A2]">&lt;2.0s</div>
               </div>
-              <div className="mt-1 text-[11px] text-slate-400">Zero cloud cost forensics</div>
-            </div>
-
-            <div className="glass-panel rounded-2xl p-4.5 transition hover:scale-105 duration-200">
-              <div className="flex items-center justify-between text-xs font-semibold text-amber-300">
-                <span>Ground Zero</span>
-                <MessageSquare className="h-4 w-4 text-amber-400" />
+              <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
+                <div className="text-[10px] text-slate-400 uppercase font-semibold">Friction Pause</div>
+                <div className="font-display text-base font-bold text-amber-300">15s cooling</div>
               </div>
-              <div className="mt-2 font-display text-2xl font-extrabold text-amber-300">
-                WhatsApp
+              <div className="rounded-xl border border-white/10 bg-[#050919]/80 p-2.5 text-center">
+                <div className="text-[10px] text-slate-400 uppercase font-semibold">Deployments</div>
+                <div className="font-display text-base font-bold text-sky-400">6 Domains</div>
               </div>
-              <div className="mt-1 text-[11px] text-slate-400">Women &amp; creators targeted</div>
-            </div>
-
-            <div className="glass-panel rounded-2xl p-4.5 transition hover:scale-105 duration-200">
-              <div className="flex items-center justify-between text-xs font-semibold text-sky-300">
-                <span>Live Verticals</span>
-                <ShieldCheck className="h-4 w-4 text-sky-400" />
-              </div>
-              <div className="mt-2 font-display text-3xl font-extrabold text-sky-400 tabular-nums text-glow-cyan">
-                6 Domains
-              </div>
-              <div className="mt-1 text-[11px] text-slate-400">KYC, BEC 2.0, Civic, Legal</div>
             </div>
           </div>
         </div>
