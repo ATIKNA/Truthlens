@@ -18,7 +18,7 @@
   html {
     color-scheme: dark;
     font-family: var(--font-sans);
-    background-color: #050919;
+    background-color: #030712;
     scroll-behavior: smooth;
   }
 
@@ -36,14 +36,73 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Subtle forensic grid background */
+/* Cybernetic Neon Background with Ambient Glow */
 .bg-forensic-grid {
+  background-color: #030715;
   background-image:
-    radial-gradient(circle at 20% 0%, rgba(16, 212, 162, 0.09), transparent 42%),
-    radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.06), transparent 36%),
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    radial-gradient(circle at 15% 10%, rgba(16, 212, 162, 0.14), transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(244, 63, 94, 0.08), transparent 50%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+}
+
+/* Glassmorphic card styling */
+.glass-panel {
+  background: rgba(11, 18, 41, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel-glow {
+  position: relative;
+  background: rgba(11, 18, 41, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(16, 212, 162, 0.25);
+  box-shadow: 0 0 25px -5px rgba(16, 212, 162, 0.15), inset 0 1px 0 0 rgba(16, 212, 162, 0.3);
+}
+
+/* Glowing text */
+.text-glow-emerald {
+  text-shadow: 0 0 16px rgba(16, 212, 162, 0.45);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 16px rgba(56, 189, 248, 0.45);
+}
+
+.text-glow-rose {
+  text-shadow: 0 0 16px rgba(244, 63, 94, 0.45);
+}
+
+/* Neon buttons */
+.btn-neon-emerald {
+  background: linear-gradient(135deg, #10d4a2 0%, #00b887 100%);
+  color: #030715;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(16, 212, 162, 0.35), 0 2px 6px rgba(0,0,0,0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-neon-emerald:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 0 30px rgba(16, 212, 162, 0.55), 0 4px 12px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, #1cf5be 0%, #00d49b 100%);
+}
+.btn-neon-emerald:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* Animated gradient border */
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(16, 212, 162, 0.4); }
+  50% { border-color: rgba(56, 189, 248, 0.4); }
+}
+
+.animate-border-glow {
+  animation: border-glow 4s ease-in-out infinite;
 }
 
 /* Custom sleek scrollbar */
@@ -52,29 +111,20 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050919;
+  background: #030715;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.22);
+  background: rgba(148, 163, 184, 0.25);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 212, 162, 0.5);
+  background: rgba(16, 212, 162, 0.6);
 }
 
 @keyframes pulse-ring {
-  0% {
-    transform: scale(0.92);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.14);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.14);
-    opacity: 0;
-  }
+  0% { transform: scale(0.92); opacity: 0.8; }
+  70% { transform: scale(1.2); opacity: 0; }
+  100% { transform: scale(1.2); opacity: 0; }
 }
 
 .animate-pulse-ring {
@@ -82,25 +132,15 @@
 }
 
 @keyframes breathe-circle {
-  0%, 100% {
-    transform: scale(0.86);
-    opacity: 0.65;
-  }
-  40% {
-    transform: scale(1.16);
-    opacity: 1;
-  }
-  70% {
-    transform: scale(1.16);
-    opacity: 0.9;
-  }
+  0%, 100% { transform: scale(0.88); opacity: 0.65; }
+  40% { transform: scale(1.18); opacity: 1; }
+  70% { transform: scale(1.18); opacity: 0.9; }
 }
 
 .animate-breathe {
-  animation: breathe-circle 12s ease-in-out infinite;
+  animation: breathe-circle 10s ease-in-out infinite;
 }
 
-/* Accessible focus ring */
 :focus-visible {
   outline: 2px solid #10d4a2;
   outline-offset: 2px;
