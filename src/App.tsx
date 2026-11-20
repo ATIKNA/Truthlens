@@ -5,9 +5,13 @@ import {
   Flame,
   Globe,
   HeartHandshake,
+  HelpCircle,
   LayoutDashboard,
+  Presentation,
   ScanSearch,
   Server,
+  Shield,
+  Sparkles,
   Wifi,
 } from 'lucide-react';
 import type {
@@ -29,7 +33,6 @@ import { HealLegalView } from './components/HealLegalView';
 import { SolutionsView } from './components/SolutionsView';
 import { PitchDeckView } from './components/PitchDeckView';
 import { SystemApiView } from './components/SystemApiView';
-import { Presentation } from 'lucide-react';
 
 const NAV_ITEMS: {
   id: NavTab;
@@ -90,22 +93,26 @@ export default function App() {
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex lg:w-68 lg:flex-col lg:fixed lg:inset-y-0 border-r border-white/10 bg-[#060b1f]/95 backdrop-blur-xl z-30">
         {/* Brand Emblem matching Pitch Deck */}
-        <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#10D4A2] text-[#050919] font-display text-xl font-extrabold shadow-lg shadow-[#10D4A2]/25">
+        <div className="flex items-center gap-3.5 px-5 py-5 border-b border-white/10 bg-gradient-to-r from-[#0d162d] to-transparent">
+          <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#10D4A2] to-[#00e8ac] text-[#050919] font-display text-2xl font-extrabold shadow-[0_4px_16px_rgba(16,212,162,0.35)]">
             T
+            <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full bg-[#030715] flex items-center justify-center">
+              <span className="h-2 w-2 rounded-full bg-[#10D4A2] animate-pulse" />
+            </span>
           </div>
           <div>
-            <div className="font-display text-base font-bold tracking-wider text-white">
+            <div className="font-display text-base font-extrabold tracking-wider text-white flex items-center gap-1.5">
               TRUTHLENS
             </div>
-            <div className="font-mono text-[10px] text-[#10D4A2]">
+            <div className="font-mono text-[10px] text-[#10D4A2] font-semibold flex items-center gap-1">
+              <Shield className="h-3 w-3" />
               v2.2.0 • SYSTEMS ENGINE
             </div>
           </div>
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 space-y-1 p-3 overflow-y-auto" aria-label="Primary navigation">
+        <nav className="flex-1 space-y-1.5 p-3.5 overflow-y-auto" aria-label="Primary navigation">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const active = activeTab === item.id;
@@ -113,20 +120,24 @@ export default function App() {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-left transition cursor-pointer ${
+                className={`w-full flex items-center gap-3.5 rounded-2xl px-3.5 py-3 text-left transition-all duration-200 cursor-pointer ${
                   active
-                    ? 'bg-[#10D4A2]/15 text-white border border-[#10D4A2]/40'
+                    ? 'bg-gradient-to-r from-[#10D4A2]/20 to-[#10D4A2]/5 text-white border border-[#10D4A2]/45 shadow-[0_4px_20px_rgba(16,212,162,0.15)] font-semibold'
                     : 'text-slate-400 hover:bg-white/[0.04] hover:text-slate-100 border border-transparent'
                 }`}
               >
-                <Icon
-                  className={`h-4 w-4 shrink-0 ${
-                    active ? 'text-[#10D4A2]' : 'text-slate-400'
+                <div
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl transition ${
+                    active
+                      ? 'bg-[#10D4A2] text-[#030715] shadow-[0_0_12px_rgba(16,212,162,0.4)]'
+                      : 'bg-white/5 text-slate-400'
                   }`}
-                />
+                >
+                  <Icon className="h-4 w-4" />
+                </div>
                 <div className="min-w-0">
-                  <div className="text-sm font-semibold truncate">{tr.nav[item.id]}</div>
-                  <div className="text-[10px] text-slate-400 truncate">
+                  <div className="text-sm font-semibold truncate leading-tight">{tr.nav[item.id]}</div>
+                  <div className="text-[10px] text-slate-400 truncate mt-0.5">
                     {tr.navSub[item.id]}
                   </div>
                 </div>
