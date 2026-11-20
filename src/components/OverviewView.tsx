@@ -6,6 +6,7 @@ import {
   Brain,
   Building2,
   CheckCircle2,
+  ChevronLeft,
   ChevronRight,
   Cpu,
   Download,
@@ -838,9 +839,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </div>
           </div>
         ) : (
-          /* Interactive Story Stepper & Usability Walkthrough */
+          /* Sleek Card Layout Swipe / Deck Carousel */
           <div className="space-y-6">
-            {/* Persona Switcher Strip */}
+            {/* Persona Switcher Tabs */}
             <div className="grid gap-3 sm:grid-cols-3">
               {USE_CASE_STORIES.map((story) => {
                 const isSelected = story.id === activeStory.id;
@@ -853,7 +854,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     }}
                     className={`rounded-2xl border p-4 text-left transition duration-200 cursor-pointer ${
                       isSelected
-                        ? 'border-[#10D4A2] bg-[#10D4A2]/10 shadow-[0_0_20px_rgba(16,212,162,0.2)]'
+                        ? 'border-[#10D4A2] bg-[#10D4A2]/15 shadow-[0_0_25px_rgba(16,212,162,0.25)] ring-1 ring-[#10D4A2]/50'
                         : 'border-white/10 bg-[#050919]/70 hover:border-white/20 hover:bg-[#07112d]'
                     }`}
                   >
@@ -876,12 +877,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               })}
             </div>
 
-            {/* Crisis Problem vs Solution Box */}
-            <div className="rounded-2xl border border-white/10 bg-[#050919]/90 p-5 space-y-4">
+            {/* Crisis Incident Context Card */}
+            <div className="rounded-2xl border border-white/10 bg-[#050919]/90 p-5 space-y-4 shadow-xl">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                 <div className="space-y-1">
                   <div className="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
-                    <ShieldAlert className="h-4 w-4" /> The Real-World Attack Scenario
+                    <ShieldAlert className="h-4 w-4" /> Real-World Attack Crisis
                   </div>
                   <h3 className="font-display text-lg font-bold text-white">
                     {activeStory.crisisTitle}
@@ -913,94 +914,124 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               </div>
             </div>
 
-            {/* 4-Step Interactive Progress Stepper */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-                <span className="font-semibold uppercase tracking-wider text-white">
-                  Intervention Steps: Click to Explore Action &amp; Live Proof
-                </span>
-                <span>Step {activeStoryStep + 1} of 4</span>
+            {/* Sleek Card Layout Swipe Deck */}
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-1">
+                <div className="flex items-center gap-2">
+                  <span className="font-display text-sm font-bold text-white">
+                    Resolution Card Deck:
+                  </span>
+                  <span className="text-xs text-slate-400">
+                    Step {activeStoryStep + 1} of 4 &bull; {activeStepData.stage}
+                  </span>
+                </div>
+
+                {/* Swipe / Card Navigation Controls */}
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 bg-black/40 px-2 py-1 rounded-xl border border-white/10">
+                    {activeStory.steps.map((_, dotIdx) => (
+                      <button
+                        key={dotIdx}
+                        onClick={() => setActiveStoryStep(dotIdx)}
+                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                          dotIdx === activeStoryStep
+                            ? 'w-6 bg-[#10D4A2] shadow-[0_0_8px_rgba(16,212,162,0.6)]'
+                            : 'w-2 bg-white/20 hover:bg-white/40'
+                        }`}
+                        aria-label={`Jump to step ${dotIdx + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setActiveStoryStep((prev) => (prev > 0 ? prev - 1 : 3))}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-[#050919] text-slate-300 hover:text-white hover:border-white/25 transition cursor-pointer"
+                      aria-label="Previous Journey Card"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => setActiveStoryStep((prev) => (prev < 3 ? prev + 1 : 0))}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#10D4A2]/40 bg-[#10D4A2]/15 text-[#10D4A2] hover:bg-[#10D4A2]/25 transition cursor-pointer"
+                      aria-label="Next Journey Card"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {/* Horizontally Swipeable Card Deck Track */}
+              <div className="flex gap-4 overflow-x-auto pb-3 pt-1 snap-x snap-mandatory scroll-smooth no-scrollbar">
                 {activeStory.steps.map((st, idx) => {
-                  const isActive = idx === activeStoryStep;
+                  const isCurrent = idx === activeStoryStep;
                   return (
-                    <button
+                    <div
                       key={st.num}
                       onClick={() => setActiveStoryStep(idx)}
-                      className={`rounded-xl border p-3 text-left transition cursor-pointer ${
-                        isActive
-                          ? 'border-[#10D4A2] bg-[#10D4A2]/15 shadow-[0_0_15px_rgba(16,212,162,0.25)]'
-                          : 'border-white/10 bg-[#050919] hover:border-white/25 hover:bg-[#08122d]'
+                      className={`min-w-[280px] sm:min-w-[330px] flex-1 max-w-[380px] flex-shrink-0 snap-center rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 cursor-pointer select-none ${
+                        isCurrent
+                          ? 'border-[#10D4A2] bg-gradient-to-b from-[#0a1c42] to-[#050f29] shadow-[0_0_30px_rgba(16,212,162,0.25)] scale-[1.02] ring-1 ring-[#10D4A2]/50'
+                          : 'border-white/10 bg-[#060d24]/75 opacity-75 hover:opacity-100 hover:border-white/25'
                       }`}
                     >
-                      <div className="flex items-center justify-between">
-                        <span className={`font-mono text-xs font-bold ${isActive ? 'text-[#10D4A2]' : 'text-slate-400'}`}>
-                          STEP {st.num}
-                        </span>
-                        <span className="text-[10px] text-slate-400 font-mono">
-                          {st.stage}
-                        </span>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className={`inline-flex items-center justify-center rounded-lg px-2.5 py-1 font-mono text-xs font-bold ${
+                            isCurrent
+                              ? 'bg-[#10D4A2] text-[#050919] shadow-[0_0_12px_rgba(16,212,162,0.4)]'
+                              : 'bg-white/10 text-slate-300'
+                          }`}>
+                            STEP {st.num}
+                          </span>
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 bg-black/40 px-2 py-0.5 rounded-md border border-white/5">
+                            {st.stage}
+                          </span>
+                        </div>
+
+                        <div>
+                          <div className="text-[11px] font-mono text-[#10D4A2] font-semibold">
+                            {st.tech}
+                          </div>
+                          <h4 className="mt-1 font-display text-base font-bold text-white leading-snug">
+                            {st.title}
+                          </h4>
+                        </div>
+
+                        <p className="text-xs leading-relaxed text-slate-300">
+                          {st.detail}
+                        </p>
                       </div>
-                      <div className="mt-1.5 text-xs font-semibold text-white truncate">
-                        {st.title}
+
+                      <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+                        <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-[#10D4A2]" />
+                          Verified
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onNavigate(st.targetTab);
+                          }}
+                          className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-md cursor-pointer ${
+                            isCurrent
+                              ? 'bg-[#10D4A2] text-[#050919] hover:bg-[#00e8ac] shadow-[0_0_15px_rgba(16,212,162,0.3)]'
+                              : 'bg-white/10 text-slate-200 hover:bg-white/20'
+                          }`}
+                        >
+                          <span>{st.cta}</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </button>
                       </div>
-                    </button>
+                    </div>
                   );
                 })}
               </div>
 
-              {/* Active Step Detailed Action Card */}
-              <div className="rounded-2xl border border-[#10D4A2]/30 bg-gradient-to-r from-[#071333] via-[#091b42] to-[#050e26] p-5 sm:p-6 shadow-xl space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-white/10 pb-3">
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#10D4A2] text-sm font-bold text-[#050919] shadow-[0_0_15px_rgba(16,212,162,0.4)]">
-                      {activeStepData.num}
-                    </span>
-                    <div>
-                      <div className="text-[11px] font-mono uppercase tracking-wider text-[#10D4A2]">
-                        {activeStepData.stage} &bull; {activeStepData.tech}
-                      </div>
-                      <h4 className="font-display text-base sm:text-lg font-bold text-white">
-                        {activeStepData.title}
-                      </h4>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => onNavigate(activeStepData.targetTab)}
-                    className="inline-flex items-center gap-2 rounded-xl bg-[#10D4A2] px-4 py-2 text-xs font-bold text-[#050919] hover:bg-[#00e8ac] transition shadow-[0_0_20px_rgba(16,212,162,0.3)] cursor-pointer shrink-0"
-                  >
-                    <span>{activeStepData.cta}</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-
-                <p className="text-sm leading-relaxed text-slate-200">
-                  {activeStepData.detail}
-                </p>
-
-                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-xs text-slate-400">
-                  <span className="flex items-center gap-1.5 text-emerald-300">
-                    <CheckCircle2 className="h-4 w-4 text-[#10D4A2]" />
-                    Real-time verification ready for testing
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setActiveStoryStep((prev) => (prev > 0 ? prev - 1 : 3))}
-                      className="px-2.5 py-1 rounded-lg border border-white/10 hover:bg-white/10 text-white cursor-pointer"
-                    >
-                      &larr; Prev Step
-                    </button>
-                    <button
-                      onClick={() => setActiveStoryStep((prev) => (prev < 3 ? prev + 1 : 0))}
-                      className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium cursor-pointer"
-                    >
-                      Next Step &rarr;
-                    </button>
-                  </div>
-                </div>
+              <div className="flex items-center justify-between text-[11px] text-slate-400 px-1 pt-1">
+                <span>👈 Swipe or click cards to step through {activeStory.persona.split(' ')[0]}&apos;s crisis resolution</span>
+                <span className="hidden sm:inline">Use Prev/Next buttons for guided walkthrough</span>
               </div>
             </div>
           </div>
