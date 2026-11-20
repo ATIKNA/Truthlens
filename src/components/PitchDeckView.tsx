@@ -12,6 +12,7 @@ import {
   ScanSearch,
   Sparkles,
   Video,
+  Volume2,
 } from 'lucide-react';
 import type { Language, NavTab } from '../types/truthlens';
 
@@ -195,6 +196,10 @@ export const PitchDeckView: React.FC<PitchDeckViewProps> = ({ lang, onNavigate }
               </div>
 
               <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#10D4A2]/15 border border-[#10D4A2]/30 px-2.5 py-0.5 text-xs font-semibold text-[#10D4A2]">
+                  <Volume2 className="h-3 w-3" />
+                  Voice Narration
+                </span>
                 <span className="rounded-full bg-sky-400/15 border border-sky-400/30 px-3 py-0.5 text-xs font-mono font-semibold text-sky-300">
                   0:25 DURATION
                 </span>

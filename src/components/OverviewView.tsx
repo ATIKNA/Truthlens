@@ -35,6 +35,7 @@ import {
   UploadCloud,
   Users,
   Video,
+  Volume2,
   X,
   Zap,
 } from 'lucide-react';
@@ -365,6 +366,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <div className="absolute top-3 left-3 pointer-events-none inline-flex items-center gap-1.5 rounded-lg bg-black/80 px-2.5 py-1 text-[11px] font-semibold text-sky-300 border border-sky-500/30 backdrop-blur-md">
                 <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
                 <span>25s Full Product Walkthrough</span>
+              </div>
+              <div className="absolute top-3 right-3 pointer-events-none inline-flex items-center gap-1.5 rounded-lg bg-black/80 px-2.5 py-1 text-[11px] font-semibold text-[#10D4A2] border border-[#10D4A2]/30 backdrop-blur-md">
+                <Volume2 className="h-3 w-3 text-[#10D4A2]" />
+                <span>Voice Narration (EN-IN)</span>
               </div>
             </div>
 
