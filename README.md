@@ -48,48 +48,156 @@ TruthLens operates at the intersection of real-time synthetic media forensics, i
 
 ---
 
-## TruthLens API Reference (v2.2.0)
+## TruthLens API Reference & Integration Manual (v2.2.0)
 
-Default backend base URL: `http://100.70.108.107:8000` (configurable inside the app's **API & Gateway** tab, with automatic **Edge Demo Fallback** so every module works offline/on-stage with real client-side ELA, SHA-256, 64-bit dHash, and simulation math).
+### Service URLs
 
-| Category | Method | Endpoint |
-| --- | --- | --- |
-| System & PWA | `GET` | `/demo`, `/download/truthlens.apk`, `/manifest.json`, `/sw.js`, `/health`, `/api/info` |
-| Edge Forensics | `POST` | `/api/detect`, `/api/detect/watermark`, `/api/detect/audio` |
-| Origin Vault (Qdrant) | `POST` | `/api/vault/register`, `/api/vault/verify` |
-| Virality & Cooling | `POST` / `GET` | `/api/amplify/pre-share-check`, `/api/amplify/log-decision`, `/api/amplify/telemetry`, `/api/simulate` |
-| Debunk & Legal | `POST` | `/api/debunk/sticker-card`, `/api/legal/evidence-dossier`, `/api/takedown/generate` |
+| Service | URL |
+|---|---|
+| **Base URL (FastAPI)** | http://100.70.108.107:8000 |
+| **Swagger UI** | http://100.70.108.107:8000/docs |
+| **OpenWA Gateway** | http://100.70.108.107:2785 |
+| **Qdrant Vector DB** | http://100.70.108.107:6333 |
+| **Mixpost Hub** | http://100.70.108.107:9000/mixpost |
+| **Android APK** | http://100.70.108.107:8000/download/truthlens.apk |
 
-**Connected Gateways:**
+> **Note:** `100.70.108.107` is a Tailscale address. Your machine must be on the same Tailscale network to reach it. If it is unreachable, the React app falls back to its built-in **Edge Demo** engine automatically.
 
-- Swagger UI: `http://100.70.108.107:8000/docs`
-- OpenWA Gateway: `http://100.70.108.107:2785`
-- Mixpost Hub: `http://100.70.108.107:9000/mixpost`
-- Qdrant Vector DB: `http://100.70.108.107:6333`
+### 1. System & Mobile App Delivery
+
+| Method | Endpoint | Payload / Description |
+|---|---|---|
+| `GET` | `/demo` | Mobile-first PWA web interface with Material 3 bottom navigation and offline shell. |
+| `GET` | `/download/truthlens.apk` | Direct download of the compiled and signed Android APK (v1.0.0). |
+| `GET` | `/manifest.json` | PWA web manifest defining standalone Android launch properties. |
+| `GET` | `/sw.js` | Service worker caching the core UI shell for instant offline loading. |
+| `GET` | `/health` | System healthcheck confirming Redis, Postgres, and edge worker status. |
+| `GET` | `/api/info` | Returns systems leverage points, supported modalities, and active architecture. |
+
+### 2. Multimodal Edge Forensics (Zero Cloud Costs)
+
+| Method | Endpoint | Payload / Description |
+|---|---|---|
+| `POST` | `/api/detect` | Multipart `file`. Runs Error Level Analysis (ELA) heatmap + 64-bit dHash. |
+| `POST` | `/api/detect/watermark` | Multipart `file`. Checks Google SynthID, C2PA manifest, and IPTC AI metadata. |
+| `POST` | `/api/detect/audio` | Multipart voice note (`.opus` / `.wav` / `.mp3`). SciPy FFT vocoder shelf cutoff (11.2 kHz), glottal pulse kurtosis/skewness, crest factor, and waveform amplitude array. |
+
+### 3. Origin Derivative Vault (Qdrant Vector DB)
+
+| Method | Endpoint | Payload / Description |
+|---|---|---|
+| `POST` | `/api/vault/register` | Multipart `file` + `owner_id` + `title`. Registers SHA-256 and 64-bit dHash vector in Qdrant collection `truthlens_vault`. |
+| `POST` | `/api/vault/verify` | Multipart `file`. Computes perceptual hash and queries Qdrant for derivative matches within Hamming distance ≤ 10. |
+
+### 4. Virality Damping & Cognitive Cooling
+
+| Method | Endpoint | Payload / Description |
+|---|---|---|
+| `POST` | `/api/amplify/pre-share-check` | JSON: `chat_id`, `message_text`, `forward_count`, `has_media`, `media_hash`. Evaluates velocity and triggers 15s cognitive cooling friction. |
+| `POST` | `/api/amplify/log-decision` | JSON: `check_id`, `decision` (`abandon` \| `shared_anyway`), `seconds_paused`. Telemetry for behavioral friction effectiveness. |
+| `GET` | `/api/amplify/telemetry` | Aggregated metrics: abandonment rate, dampening factor, total interventions. |
+| `POST` | `/api/simulate` | JSON: `hours`, `p_forward`, `friction_enabled`, `cooling_delay_seconds`. Computes the Donella Meadows stock-and-flow 24-hour virality curve. |
+
+### 5. Grassroots Debunking & Court-Ready Evidence
+
+| Method | Endpoint | Payload / Description |
+|---|---|---|
+| `POST` | `/api/debunk/sticker-card` | Multipart `file`. Auto-generates a high-contrast WhatsApp warning sticker card (PNG base64) + 1-tap counter-narrative text snippet. |
+| `POST` | `/api/legal/evidence-dossier` | Multipart `file` + `victim_name` + `suspect_identifier`. Generates Section 63 BSA 2023 certificate, Cyber Cell complaint letter, and Section 67C IT Act / Sec 94 BNSS emergency preservation notice targeting Jamtara/Mewat ISP CGNAT and cell tower dumps. |
+| `POST` | `/api/takedown/generate` | JSON: victim details, infringing URL. Generates a Rule 3(2)(b) IT Rules 2021 24-hour intermediary takedown notice. |
+
+### Example `curl` Requests
+
+```bash
+BASE=http://100.70.108.107:8000
+
+# Health & info
+curl $BASE/health
+curl $BASE/api/info
+
+# Image forensics
+curl -X POST $BASE/api/detect           -F "file=@sample.jpg"
+curl -X POST $BASE/api/detect/watermark -F "file=@sample.jpg"
+
+# Voice note forensics
+curl -X POST $BASE/api/detect/audio -F "file=@voice_note.opus"
+
+# Origin Vault
+curl -X POST $BASE/api/vault/register -F "file=@original.jpg" -F "owner_id=ankita" -F "title=Official Portrait"
+curl -X POST $BASE/api/vault/verify   -F "file=@suspect_copy.jpg"
+
+# Cognitive cooling
+curl -X POST $BASE/api/amplify/pre-share-check -H "Content-Type: application/json" \
+  -d '{"chat_id":"grp-1","message_text":"URGENT forward!","forward_count":5,"has_media":true,"media_hash":"9e4c3a1f82b07d55"}'
+curl -X POST $BASE/api/amplify/log-decision -H "Content-Type: application/json" \
+  -d '{"check_id":"chk-123","decision":"abandon","seconds_paused":15}'
+curl $BASE/api/amplify/telemetry
+
+# Virality simulation
+curl -X POST $BASE/api/simulate -H "Content-Type: application/json" \
+  -d '{"hours":24,"p_forward":0.42,"friction_enabled":true,"cooling_delay_seconds":15}'
+
+# Debunk & legal
+curl -X POST $BASE/api/debunk/sticker-card -F "file=@fake.jpg"
+curl -X POST $BASE/api/legal/evidence-dossier -F "file=@fake.jpg" -F "victim_name=Ankita Sinha" -F "suspect_identifier=+91-98XXXXXX42"
+curl -X POST $BASE/api/takedown/generate -H "Content-Type: application/json" \
+  -d '{"victim_name":"Ankita Sinha","victim_email":"ankita@example.in","platform":"Instagram","infringing_url":"https://instagram.com/p/xyz","description":"Morphed image"}'
+```
 
 ---
 
-## Quick Start
+## How to Run
 
 ### Prerequisites
 
-- Node.js 20+ and npm
+- **Node.js 20+** and **npm** (check with `node -v` and `npm -v`)
+- *(Optional)* **Tailscale**, connected to the team network, to use the live backend at `100.70.108.107`
 
-### Install & Run Locally
+### 1. Clone & install
 
 ```bash
+git clone <your-repo-url> Truthlens
+cd Truthlens
 npm install
+```
+
+### 2. Start the dev server
+
+```bash
 npm run dev
 ```
 
-Open **<http://localhost:5173>** in your browser.
+Open **http://localhost:5173** in your browser. To open it on a phone on the same Wi-Fi, use the `Network:` URL that Vite prints.
 
-### Production Build
+### 3. Pick an engine mode
+
+Use the toggle in the top-right of the app:
+
+- **Edge Demo** (default): everything runs in the browser (real ELA heatmaps, SHA-256, 64-bit dHash, virality simulation, sticker and legal document generation). No backend or network is needed, so this is the safest mode for a stage demo.
+- **Live Server**: calls the FastAPI backend at `http://100.70.108.107:8000`. You can change the base URL in **API & Gateway → Server Routing**. If a request fails or times out, that call falls back to the Edge engine.
+
+### 4. Check the backend (optional)
 
 ```bash
-npm run build
-npm run preview
+curl http://100.70.108.107:8000/health
 ```
+
+Or, in the app, open **API & Gateway** and click **GET /health** in the Live JSON Probe Console.
+
+> **CORS & the dev proxy:** in `npm run dev`, the app calls same-origin `/api/*`, `/health` and `/download/*`, and Vite forwards them to the backend, so there are no CORS problems locally. To point at a different backend, copy `.env.example` to `.env` and set `VITE_API_BASE_URL`. For production builds (or if you type a custom URL in the app), the browser calls the backend directly, so FastAPI must allow your frontend origin in `CORSMiddleware`.
+
+### 5. Production build
+
+```bash
+npm run build     # type-checks with tsc, then bundles into dist/
+npm run preview   # serves the production build locally
+```
+
+You can deploy the `dist/` folder to any static host (Firebase Hosting, Cloud Run + nginx, Netlify, etc.).
+
+### Install the Android app
+
+Download the APK on an Android phone that is connected to Tailscale: http://100.70.108.107:8000/download/truthlens.apk
 
 ---
 
@@ -107,7 +215,7 @@ npm run preview
 │   │   ├── DampenView.tsx     # 15s Cognitive Cooling, 24h Simulator & Wellbeing
 │   │   ├── HealLegalView.tsx  # Crisis Coach, WhatsApp Sticker, BSA 63 & Rule 3(2)(b)
 │   │   ├── SolutionsView.tsx  # 6 Industry Verticals & Live Policy Gate Simulators
-│   │   └── SystemApiView.tsx  # Live 16-Endpoint API Probe Console & Gateways
+│   │   └── SystemApiView.tsx  # Live 18-Endpoint API Probe Console & Gateways
 │   ├── lib/
 │   │   ├── api.ts             # TruthLens v2.2.0 Client (Live API + Edge Fallback)
 │   │   ├── forensics.ts       # Client-side ELA, dHash, SHA-256, Sticker & Legal Engine
@@ -122,5 +230,5 @@ npm run preview
 
 ## Team
 
-- **Gaurav Singh** (Jaipur) — `acad.grv97@gmail.com`
+- **Gaurav Singh** (Jaipur)
 - **Ankita Sinha** (Bengaluru - Remote)

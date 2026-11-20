@@ -28,7 +28,8 @@ import {
   runLocalWatermarkCheck,
 } from './forensics';
 
-export const DEFAULT_BASE_URL = 'http://100.70.108.107:8000';
+export const DEFAULT_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/+$/, '') || 'http://100.70.108.107:8000';
 
 // Local Qdrant-emulated Origin Vault store for offline/demo resilience
 const localVaultStore: VaultItem[] = [
@@ -76,11 +77,15 @@ async function fetchWithTimeout(
 }
 
 export class TruthLensClient {
+  /** Public backend URL (used for links: APK, Swagger, gateways). */
   baseUrl: string;
+  /** Prefix used for fetch() calls. Empty string = same-origin via Vite dev proxy (no CORS). */
+  apiBase: string;
   preferredMode: ExecutionMode;
 
   constructor(baseUrl = DEFAULT_BASE_URL, preferredMode: ExecutionMode = 'edge-demo') {
     this.baseUrl = baseUrl.replace(/\/+$/, '');
+    this.apiBase = import.meta.env.DEV && this.baseUrl === DEFAULT_BASE_URL ? '' : this.baseUrl;
     this.preferredMode = preferredMode;
   }
 
@@ -93,7 +98,7 @@ export class TruthLensClient {
     const t0 = performance.now();
     if (this.shouldTryLive) {
       try {
-        const res = await fetchWithTimeout(`${this.baseUrl}/health`, {}, 2500);
+        const res = await fetchWithTimeout(`${this.apiBase}/health`, {}, 2500);
         if (res.ok) {
           const data = await res.json();
           return {
@@ -133,7 +138,7 @@ export class TruthLensClient {
   async getApiInfo(): Promise<ApiInfoResponse> {
     if (this.shouldTryLive) {
       try {
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/info`, {}, 2500);
+        const res = await fetchWithTimeout(`${this.apiBase}/api/info`, {}, 2500);
         if (res.ok) {
           const data = await res.json();
           return {
@@ -159,7 +164,7 @@ export class TruthLensClient {
         const form = new FormData();
         form.append('file', file);
         const t0 = performance.now();
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/detect`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/detect`, {
           method: 'POST',
           body: form,
         }, 8000);
@@ -196,7 +201,7 @@ export class TruthLensClient {
       try {
         const form = new FormData();
         form.append('file', file);
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/detect/watermark`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/detect/watermark`, {
           method: 'POST',
           body: form,
         }, 6000);
@@ -226,7 +231,7 @@ export class TruthLensClient {
       try {
         const form = new FormData();
         form.append('file', file);
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/detect/audio`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/detect/audio`, {
           method: 'POST',
           body: form,
         }, 8000);
@@ -265,7 +270,7 @@ export class TruthLensClient {
         form.append('file', file);
         form.append('owner_id', ownerId);
         form.append('title', title);
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/vault/register`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/vault/register`, {
           method: 'POST',
           body: form,
         }, 6000);
@@ -315,7 +320,7 @@ export class TruthLensClient {
       try {
         const form = new FormData();
         form.append('file', file);
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/vault/verify`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/vault/verify`, {
           method: 'POST',
           body: form,
         }, 6000);
@@ -368,7 +373,7 @@ export class TruthLensClient {
   async preShareCheck(payload: PreShareCheckPayload): Promise<PreShareCheckResult> {
     if (this.shouldTryLive) {
       try {
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/amplify/pre-share-check`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/amplify/pre-share-check`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -437,7 +442,7 @@ export class TruthLensClient {
 
     if (this.shouldTryLive) {
       try {
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/amplify/log-decision`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/amplify/log-decision`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -454,7 +459,7 @@ export class TruthLensClient {
   async getTelemetry(): Promise<TelemetryResponse> {
     if (this.shouldTryLive) {
       try {
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/amplify/telemetry`, {}, 3000);
+        const res = await fetchWithTimeout(`${this.apiBase}/api/amplify/telemetry`, {}, 3000);
         if (res.ok) {
           const data = await res.json();
           return {
@@ -498,7 +503,7 @@ export class TruthLensClient {
   }): Promise<SimulationResponse> {
     if (this.shouldTryLive) {
       try {
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/simulate`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/simulate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(params),
@@ -522,7 +527,7 @@ export class TruthLensClient {
       try {
         const form = new FormData();
         form.append('file', file);
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/debunk/sticker-card`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/debunk/sticker-card`, {
           method: 'POST',
           body: form,
         }, 6000);
@@ -569,7 +574,7 @@ export class TruthLensClient {
         form.append('file', params.file);
         form.append('victim_name', params.victimName);
         form.append('suspect_identifier', params.suspectIdentifier);
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/legal/evidence-dossier`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/legal/evidence-dossier`, {
           method: 'POST',
           body: form,
         }, 7000);
@@ -620,7 +625,7 @@ export class TruthLensClient {
   }): Promise<TakedownNoticeResult> {
     if (this.shouldTryLive) {
       try {
-        const res = await fetchWithTimeout(`${this.baseUrl}/api/takedown/generate`, {
+        const res = await fetchWithTimeout(`${this.apiBase}/api/takedown/generate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
