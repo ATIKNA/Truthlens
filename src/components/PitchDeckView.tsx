@@ -24,7 +24,7 @@ const SLIDES = [
     badge: 'Cover • Buildathon 2026',
     image: '/deck/slide1.png',
     keyPoints: [
-      'Team: Gaurav Singh (Jaipur) & Ankita Sinha (Remote Mac) — acad.grv97@gmail.com',
+      'Team: Gaurav Singh (Jaipur) & Ankita Sinha (Remote)',
       'Methodologies: Causal Inference (Erica) • Systems Dynamics (Schemo) • Gemini',
       'Theme: Buildathon 2026 • India • Hypothetica',
     ],
@@ -162,9 +162,8 @@ export const PitchDeckView: React.FC<PitchDeckViewProps> = ({ lang, onNavigate }
                 <button
                   key={idx}
                   onClick={() => setCurrentSlideIndex(idx)}
-                  className={`h-2 rounded-full transition-all cursor-pointer ${
-                    idx === currentSlideIndex ? 'w-6 bg-[#10D4A2]' : 'w-2 bg-white/20 hover:bg-white/40'
-                  }`}
+                  className={`h-2 rounded-full transition-all cursor-pointer ${idx === currentSlideIndex ? 'w-6 bg-[#10D4A2]' : 'w-2 bg-white/20 hover:bg-white/40'
+                    }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
@@ -231,11 +230,10 @@ export const PitchDeckView: React.FC<PitchDeckViewProps> = ({ lang, onNavigate }
               <button
                 key={s.id}
                 onClick={() => setCurrentSlideIndex(idx)}
-                className={`group relative overflow-hidden rounded-xl border text-left transition cursor-pointer ${
-                  isActive
-                    ? 'border-[#10D4A2] ring-2 ring-[#10D4A2]/40 bg-[#10D4A2]/10'
-                    : 'border-white/10 bg-[#0b1229] hover:border-white/30'
-                }`}
+                className={`group relative overflow-hidden rounded-xl border text-left transition cursor-pointer ${isActive
+                  ? 'border-[#10D4A2] ring-2 ring-[#10D4A2]/40 bg-[#10D4A2]/10'
+                  : 'border-white/10 bg-[#0b1229] hover:border-white/30'
+                  }`}
               >
                 <div className="aspect-[16/9] w-full overflow-hidden bg-black/40">
                   <img

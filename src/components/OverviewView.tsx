@@ -295,62 +295,105 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       </section>
 
       {/* The 3 Reinforcing Loops (Pitch Slide 2) */}
-      <section className="grid gap-5 md:grid-cols-3">
-        {[
-          {
-            title: '1. Virality Loop',
-            icon: Flame,
-            flow: 'AI Tool → Shocking Fake → Algorithm Boosts → More Shares',
-            detail:
-              'Outrage-optimized feeds and WhatsApp forwards achieve exponential reach within 2 hours, long before manual moderation can respond.',
-            accent: 'border-amber-500/35 bg-gradient-to-b from-amber-950/20 to-[#0b1229]/80 shadow-[0_0_20px_rgba(245,158,11,0.08)]',
-            badge: 'text-amber-300 bg-amber-500/15 border-amber-500/30',
-            iconColor: 'text-amber-400',
-          },
-          {
-            title: '2. Mental Health Loop',
-            icon: HeartHandshake,
-            flow: 'Victim Sees Fake → Anxiety / Shame → Withdrawal → Deeper Harm',
-            detail:
-              'Women, students, and creators suffer acute psychological trauma and silence while non-consensual morphed content circulates.',
-            accent: 'border-rose-500/35 bg-gradient-to-b from-rose-950/20 to-[#0b1229]/80 shadow-[0_0_20px_rgba(244,63,94,0.08)]',
-            badge: 'text-rose-300 bg-rose-500/15 border-rose-500/30',
-            iconColor: 'text-rose-400',
-          },
-          {
-            title: '3. Trust Collapse Loop',
-            icon: ShieldAlert,
-            flow: 'No One Trusts Media → Real Victims Ignored → Society Divides',
-            detail:
-              'When synthetic forgery saturates KYC, newsrooms, and courts, both real evidence and institutional trust break down.',
-            accent: 'border-sky-500/35 bg-gradient-to-b from-sky-950/20 to-[#0b1229]/80 shadow-[0_0_20px_rgba(56,189,248,0.08)]',
-            badge: 'text-sky-300 bg-sky-500/15 border-sky-500/30',
-            iconColor: 'text-sky-400',
-          },
-        ].map((loop) => {
-          const Icon = loop.icon;
-          return (
-            <div
-              key={loop.title}
-              className={`rounded-2xl border p-5 transition hover:scale-[1.02] duration-200 ${loop.accent}`}
-            >
-              <div className="flex items-center justify-between">
-                <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${loop.badge}`}>
-                  <Icon className="h-3 w-3" />
-                  Reinforcing Loop
-                </span>
-              </div>
-              <h3 className="mt-3 font-display text-lg font-bold text-white flex items-center gap-2">
-                <Icon className={`h-5 w-5 ${loop.iconColor}`} />
-                {loop.title}
-              </h3>
-              <div className="mt-2 rounded-lg bg-black/40 p-2.5 font-mono text-[11px] text-slate-200 border border-white/5">
-                {loop.flow}
-              </div>
-              <p className="mt-2.5 text-xs leading-relaxed text-slate-400">{loop.detail}</p>
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+              <ShieldAlert className="h-4 w-4" /> Systems Failure Modes
             </div>
-          );
-        })}
+            <h2 className="mt-0.5 font-display text-2xl font-bold text-white">
+              The Problem is a System: 3 Reinforcing Loops
+            </h2>
+            <p className="text-sm text-slate-400">
+              Deepfakes exploit human psychology and platform algorithms. Detection alone is always too late.
+            </p>
+          </div>
+          <span className="hidden sm:inline-flex rounded-full bg-white/5 border border-white/10 px-3 py-1 text-xs text-slate-300">
+            Slide 2 • Buildathon 2026
+          </span>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          {[
+            {
+              title: '1. Virality Loop',
+              icon: Flame,
+              image: '/reactions/loop1_virality.png',
+              alt: 'Reaction: WhatsApp forward storm radiating to groups',
+              flow: 'AI Tool → Shocking Fake → Algorithm Boosts → More Shares',
+              detail:
+                'Outrage-optimized feeds and WhatsApp forwards achieve exponential reach within 2 hours, long before manual moderation can respond.',
+              accent: 'border-amber-500/35 bg-gradient-to-b from-amber-950/20 to-[#0b1229]/80 shadow-[0_0_25px_rgba(245,158,11,0.1)]',
+              badge: 'text-amber-300 bg-amber-500/15 border-amber-500/30',
+              iconColor: 'text-amber-400',
+              reactionCaption: 'Forwarded 5x+ • Rapid group virality',
+            },
+            {
+              title: '2. Mental Health Loop',
+              icon: HeartHandshake,
+              image: '/reactions/loop2_mental_health.png',
+              alt: 'Reaction: Victim overwhelmed by notifications in distress',
+              flow: 'Victim Sees Fake → Anxiety / Shame → Withdrawal → Deeper Harm',
+              detail:
+                'Women, students, and creators suffer acute psychological trauma and silence while non-consensual morphed content circulates.',
+              accent: 'border-rose-500/35 bg-gradient-to-b from-rose-950/20 to-[#0b1229]/80 shadow-[0_0_25px_rgba(244,63,94,0.1)]',
+              badge: 'text-rose-300 bg-rose-500/15 border-rose-500/30',
+              iconColor: 'text-rose-400',
+              reactionCaption: 'Acute distress & panic • Isolation cycle',
+            },
+            {
+              title: '3. Trust Collapse Loop',
+              icon: ShieldAlert,
+              image: '/reactions/loop3_trust_collapse.png',
+              alt: 'Reaction: Shattered trust shield dividing society and victims',
+              flow: 'No One Trusts Media → Real Victims Ignored → Society Divides',
+              detail:
+                'When synthetic forgery saturates KYC, newsrooms, and courts, both real evidence and institutional trust break down.',
+              accent: 'border-sky-500/35 bg-gradient-to-b from-sky-950/20 to-[#0b1229]/80 shadow-[0_0_25px_rgba(56,189,248,0.1)]',
+              badge: 'text-sky-300 bg-sky-500/15 border-sky-500/30',
+              iconColor: 'text-sky-400',
+              reactionCaption: 'Shattered evidence • Institutional polarization',
+            },
+          ].map((loop) => {
+            const Icon = loop.icon;
+            return (
+              <div
+                key={loop.title}
+                className={`overflow-hidden rounded-2xl border transition hover:scale-[1.02] duration-200 ${loop.accent}`}
+              >
+                {/* Visual Graphic Representation */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-black/50 border-b border-white/10">
+                  <img
+                    src={loop.image}
+                    alt={loop.alt}
+                    className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b1229] via-transparent to-transparent opacity-80" />
+                  <span className="absolute bottom-2.5 left-3 rounded-md bg-black/70 px-2 py-0.5 text-[10px] font-mono font-semibold text-slate-300 backdrop-blur-sm border border-white/10">
+                    {loop.reactionCaption}
+                  </span>
+                </div>
+
+                <div className="p-5">
+                  <div className="flex items-center justify-between">
+                    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${loop.badge}`}>
+                      <Icon className="h-3 w-3" />
+                      Reinforcing Loop
+                    </span>
+                  </div>
+                  <h3 className="mt-3 font-display text-lg font-bold text-white flex items-center gap-2">
+                    <Icon className={`h-5 w-5 ${loop.iconColor}`} />
+                    {loop.title}
+                  </h3>
+                  <div className="mt-2.5 rounded-xl bg-black/40 p-2.5 font-mono text-[11px] text-slate-200 border border-white/5">
+                    {loop.flow}
+                  </div>
+                  <p className="mt-2.5 text-xs leading-relaxed text-slate-400">{loop.detail}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       {/* Interactive Donella Meadows Causal Graph & Leverage Points */}

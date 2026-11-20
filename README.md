@@ -55,20 +55,20 @@ TruthLens operates at the intersection of real-time synthetic media forensics, i
 ### Service URLs
 
 | Service | URL |
-|---|---|
-| **Base URL (FastAPI)** | http://100.70.108.107:8000 |
-| **Swagger UI** | http://100.70.108.107:8000/docs |
-| **OpenWA Gateway** | http://100.70.108.107:2785 |
-| **Qdrant Vector DB** | http://100.70.108.107:6333 |
-| **Mixpost Hub** | http://100.70.108.107:9000/mixpost |
-| **Android APK** | http://100.70.108.107:8000/download/truthlens.apk |
+| --- | --- |
+| **Base URL (FastAPI)** | <http://100.70.108.107:8000> |
+| **Swagger UI** | <http://100.70.108.107:8000/docs> |
+| **OpenWA Gateway** | <http://100.70.108.107:2785> |
+| **Qdrant Vector DB** | <http://100.70.108.107:6333> |
+| **Mixpost Hub** | <http://100.70.108.107:9000/mixpost> |
+| **Android APK** | <http://100.70.108.107:8000/download/truthlens.apk> |
 
 > **Note:** `100.70.108.107` is a Tailscale address. Your machine must be on the same Tailscale network to reach it. If it is unreachable, the React app falls back to its built-in **Edge Demo** engine automatically.
 
 ### 1. System & Mobile App Delivery
 
 | Method | Endpoint | Payload / Description |
-|---|---|---|
+| --- | --- | --- |
 | `GET` | `/demo` | Mobile-first PWA web interface with Material 3 bottom navigation and offline shell. |
 | `GET` | `/download/truthlens.apk` | Direct download of the compiled and signed Android APK (v1.0.0). |
 | `GET` | `/manifest.json` | PWA web manifest defining standalone Android launch properties. |
@@ -79,7 +79,7 @@ TruthLens operates at the intersection of real-time synthetic media forensics, i
 ### 2. Multimodal Edge Forensics (Zero Cloud Costs)
 
 | Method | Endpoint | Payload / Description |
-|---|---|---|
+| --- | --- | --- |
 | `POST` | `/api/detect` | Multipart `file`. Runs Error Level Analysis (ELA) heatmap + 64-bit dHash. |
 | `POST` | `/api/detect/watermark` | Multipart `file`. Checks Google SynthID, C2PA manifest, and IPTC AI metadata. |
 | `POST` | `/api/detect/audio` | Multipart voice note (`.opus` / `.wav` / `.mp3`). SciPy FFT vocoder shelf cutoff (11.2 kHz), glottal pulse kurtosis/skewness, crest factor, and waveform amplitude array. |
@@ -87,14 +87,14 @@ TruthLens operates at the intersection of real-time synthetic media forensics, i
 ### 3. Origin Derivative Vault (Qdrant Vector DB)
 
 | Method | Endpoint | Payload / Description |
-|---|---|---|
+| --- | --- | --- |
 | `POST` | `/api/vault/register` | Multipart `file` + `owner_id` + `title`. Registers SHA-256 and 64-bit dHash vector in Qdrant collection `truthlens_vault`. |
 | `POST` | `/api/vault/verify` | Multipart `file`. Computes perceptual hash and queries Qdrant for derivative matches within Hamming distance ≤ 10. |
 
 ### 4. Virality Damping & Cognitive Cooling
 
 | Method | Endpoint | Payload / Description |
-|---|---|---|
+| --- | --- | --- |
 | `POST` | `/api/amplify/pre-share-check` | JSON: `chat_id`, `message_text`, `forward_count`, `has_media`, `media_hash`. Evaluates velocity and triggers 15s cognitive cooling friction. |
 | `POST` | `/api/amplify/log-decision` | JSON: `check_id`, `decision` (`abandon` \| `shared_anyway`), `seconds_paused`. Telemetry for behavioral friction effectiveness. |
 | `GET` | `/api/amplify/telemetry` | Aggregated metrics: abandonment rate, dampening factor, total interventions. |
@@ -103,7 +103,7 @@ TruthLens operates at the intersection of real-time synthetic media forensics, i
 ### 5. Grassroots Debunking & Court-Ready Evidence
 
 | Method | Endpoint | Payload / Description |
-|---|---|---|
+| --- | --- | --- |
 | `POST` | `/api/debunk/sticker-card` | Multipart `file`. Auto-generates a high-contrast WhatsApp warning sticker card (PNG base64) + 1-tap counter-narrative text snippet. |
 | `POST` | `/api/legal/evidence-dossier` | Multipart `file` + `victim_name` + `suspect_identifier`. Generates Section 63 BSA 2023 certificate, Cyber Cell complaint letter, and Section 67C IT Act / Sec 94 BNSS emergency preservation notice targeting Jamtara/Mewat ISP CGNAT and cell tower dumps. |
 | `POST` | `/api/takedown/generate` | JSON: victim details, infringing URL. Generates a Rule 3(2)(b) IT Rules 2021 24-hour intermediary takedown notice. |
@@ -169,7 +169,7 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173** in your browser. To open it on a phone on the same Wi-Fi, use the `Network:` URL that Vite prints.
+Open **<http://localhost:5173>** in your browser. To open it on a phone on the same Wi-Fi, use the `Network:` URL that Vite prints.
 
 ### 3. Pick an engine mode
 
@@ -199,7 +199,7 @@ You can deploy the `dist/` folder to any static host (Firebase Hosting, Cloud Ru
 
 ### Install the Android app
 
-Download the APK on an Android phone that is connected to Tailscale: http://100.70.108.107:8000/download/truthlens.apk
+Download the APK on an Android phone that is connected to Tailscale: <http://100.70.108.107:8000/download/truthlens.apk>
 
 ---
 
@@ -247,5 +247,5 @@ Download the APK on an Android phone that is connected to Tailscale: http://100.
 
 ## Team
 
-- **Gaurav Singh** (Jaipur) — acad.grv97@gmail.com
+- **Gaurav Singh** (Jaipur)
 - **Ankita Sinha** (Bengaluru - Remote)
